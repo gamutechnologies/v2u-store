@@ -1,0 +1,507 @@
+[
+  {
+    "id": 1,
+    "brand": "Apple",
+    "name": "iPhone 17 Pro Max",
+    "originalPrice": "$1,599.00",
+    "salePrice": "$1,299.00",
+    "badge": "Sale",
+    "rating": 4.9,
+    "reviewCount": 154,
+    "colorOptions": [
+      {
+        "label": "Cosmic Orange",
+        "swatch": "#F97316",
+        "image": "/images/product/iphone17promax-orange.webp"
+      },
+      {
+        "label": "Deep Blue",
+        "swatch": "#1C1C1E",
+        "image": "/images/product/iphone17promax-blue.webp"
+      },
+      {
+        "label": "Silver",
+        "swatch": "#C4B49E",
+        "image": "/images/product/iphone17promax-silver.webp"
+      }
+    ],
+    "storageOptions": [
+      {
+        "label": "256GB"
+      },
+      {
+        "label": "512GB",
+        "priceSuffix": "+$200"
+      },
+      {
+        "label": "1TB",
+        "priceSuffix": "+$400"
+      }
+    ],
+    "description": "The iPhone 15 Pro Max features a strong and lightweight titanium design with new contoured edges, a new Action button, powerful camera upgrades, and A17 Pro for next-level performance and mobile gaming.",
+    "specifications": [
+      {
+        "label": "Screen Size",
+        "value": "6.7 inches"
+      },
+      {
+        "label": "Processor",
+        "value": "A17 Pro chip"
+      },
+      {
+        "label": "Camera",
+        "value": "48MP Main, 12MP Ultra Wide, 12MP Telephoto"
+      },
+      {
+        "label": "Battery Life",
+        "value": "Up to 29 hours video playback"
+      }
+    ]
+  },{
+    "id": 2,
+    "brand": "Apple",
+    "name": "iPhone 15 Pro Max",
+    "originalPrice": "$1,199.00",
+    "salePrice": "$1,099.00",
+    "badge": "Sale",
+    "rating": 4.9,
+    "reviewCount": 154,
+    "colorOptions": [
+      {
+        "label": "Natural Titanium",
+        "swatch": "#A5A5A5",
+        "image": "/images/products/phone.png"
+      },
+      {
+        "label": "Blue Titanium",
+        "swatch": "#4A5568",
+        "image": "/images/products/phone.png"
+      }
+    ],
+    "storageOptions": [
+      {
+        "label": "256GB"
+      },
+      {
+        "label": "512GB",
+        "priceSuffix": "+$200"
+      }
+    ],
+    "description": "The iPhone 15 Pro Max features a strong and lightweight titanium design with new contoured edges, a new Action button, powerful camera upgrades, and A17 Pro for next-level performance and mobile gaming.",
+    "specifications": [
+      {
+        "label": "Screen Size",
+        "value": "6.7 inches"
+      },
+      {
+        "label": "Processor",
+        "value": "A17 Pro chip"
+      },
+      {
+        "label": "Camera",
+        "value": "48MP Main, 12MP Ultra Wide, 12MP Telephoto"
+      },
+      {
+        "label": "Battery Life",
+        "value": "Up to 29 hours video playback"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "brand": "Apple",
+    "name": "MacBook Pro 16\"",
+    "originalPrice": "$2,499.00",
+    "salePrice": "$2,299.00",
+    "badge": "Best Seller",
+    "rating": 4.8,
+    "reviewCount": 320,
+    "colorOptions": [
+      {
+        "label": "Space Black",
+        "swatch": "#2D2D2D",
+        "image": "/images/products/laptop.png"
+      },
+      {
+        "label": "Silver",
+        "swatch": "#E0E0E0",
+        "image": "/images/products/laptop.png"
+      }
+    ],
+    "description": "Powered by M3 Pro or M3 Max, this MacBook Pro delivers game-changing performance and up to 22 hours of battery life. It features a brilliant Liquid Retina XDR display and an array of pro ports.",
+    "specifications": [
+      {
+        "label": "Screen Size",
+        "value": "16.2 inches Liquid Retina XDR"
+      },
+      {
+        "label": "Processor",
+        "value": "M3 Pro or M3 Max"
+      },
+      {
+        "label": "Memory",
+        "value": "Up to 128GB unified memory"
+      },
+      {
+        "label": "Storage",
+        "value": "Up to 8TB SSD"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "brand": "Sony",
+    "name": "WH-1000XM5 Headphones",
+    "originalPrice": "$399.00",
+    "salePrice": "$348.00",
+    "rating": 4.7,
+    "reviewCount": 89,
+    "colorOptions": [
+      {
+        "label": "Black",
+        "swatch": "#000000",
+        "image": "/images/products/headphone.png"
+      },
+      {
+        "label": "Silver",
+        "swatch": "#D9D9D9",
+        "image": "/images/products/headphone.png"
+      }
+    ],
+    "description": "Industry leading noise cancellation-two processors control 8 microphones for unprecedented noise cancellation. With Auto NC Optimizer, noise canceling is automatically optimized based on your wearing conditions and environment.",
+    "specifications": [
+      {
+        "label": "Weight",
+        "value": "Approx. 250g"
+      },
+      {
+        "label": "Headphone Type",
+        "value": "Closed, dynamic"
+      },
+      {
+        "label": "Driver Unit",
+        "value": "30mm"
+      },
+      {
+        "label": "Frequency Response",
+        "value": "4 Hz - 40,000 Hz"
+      },
+      {
+        "label": "Battery Life",
+        "value": "Max. 30 hrs (NC ON)"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "brand": "Apple",
+    "name": "iPad Air M2",
+    "originalPrice": "$599.00",
+    "salePrice": "$549.00",
+    "rating": 4.6,
+    "reviewCount": 45,
+    "colorOptions": [
+      {
+        "label": "Space Gray",
+        "swatch": "#555555",
+        "image": "/images/products/tablet.png"
+      },
+      {
+        "label": "Starlight",
+        "swatch": "#E8E8E8",
+        "image": "/images/products/tablet.png"
+      }
+    ],
+    "description": "Supercharged by the M2 chip. 11-inch Liquid Retina display. Landscape 12MP Ultra Wide front camera. Wi-Fi 6E and 5G.",
+    "specifications": [
+      {
+        "label": "Screen Size",
+        "value": "11 inches Liquid Retina"
+      },
+      {
+        "label": "Processor",
+        "value": "Apple M2 chip"
+      },
+      {
+        "label": "Camera",
+        "value": "12MP Wide back, 12MP Ultra Wide front"
+      },
+      {
+        "label": "Storage",
+        "value": "128GB, 256GB, 512GB or 1TB"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "brand": "Apple",
+    "name": "AirPods Pro",
+    "originalPrice": "$249.00",
+    "salePrice": "$199.00",
+    "badge": "Sale",
+    "rating": 4.8,
+    "reviewCount": 809,
+    "colorOptions": [
+      {
+        "label": "White",
+        "swatch": "#FFFFFF",
+        "image": "/images/products/airpod.png"
+      }
+    ],
+    "description": "AirPods Pro feature up to 2x more Active Noise Cancellation, plus Adaptive Transparency, and Personalized Spatial Audio with dynamic head tracking for immersive sound. Now with multiple ear tips (XS, S, M, L) and up to 6 hours of listening time.",
+    "specifications": [
+      {
+        "label": "Audio Technology",
+        "value": "Active Noise Cancellation"
+      },
+      {
+        "label": "Chip",
+        "value": "Apple H2 headphone chip"
+      },
+      {
+        "label": "Battery Life",
+        "value": "Up to 6 hours of listening time with a single charge"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "brand": "Samsung",
+    "name": "Galaxy S24 Ultra",
+    "originalPrice": "$1,299.00",
+    "salePrice": "$1,179.00",
+    "badge": "Hot",
+    "rating": 4.8,
+    "reviewCount": 128,
+    "colorOptions": [
+      {
+        "label": "Titanium Black",
+        "swatch": "#2D3748",
+        "image": "/images/products/s24-ultra.png"
+      },
+      {
+        "label": "Titanium Violet",
+        "swatch": "#805AD5",
+        "image": "/images/products/s24-ultra.png"
+      }
+    ],
+    "storageOptions": [
+      {
+        "label": "256GB"
+      },
+      {
+        "label": "512GB",
+        "priceSuffix": "+$180"
+      }
+    ],
+    "description": "The Samsung Galaxy S24 Ultra delivers premium performance with Galaxy AI features, an advanced quad-camera setup, and an ultra-smooth AMOLED display built for productivity and gaming.",
+    "specifications": [
+      {
+        "label": "Screen Size",
+        "value": "6.8 inches"
+      },
+      {
+        "label": "Processor",
+        "value": "Snapdragon 8 Gen 3"
+      },
+      {
+        "label": "Camera",
+        "value": "200MP Main, 50MP Periscope, 12MP Ultra Wide"
+      },
+      {
+        "label": "Battery Life",
+        "value": "Up to 30 hours video playback"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "brand": "Sony",
+    "name": "PlayStation 5 Slim",
+    "originalPrice": "$599.00",
+    "salePrice": "$549.00",
+    "badge": "Trending",
+    "rating": 4.9,
+    "reviewCount": 241,
+    "colorOptions": [
+      {
+        "label": "White",
+        "swatch": "#E2E8F0",
+        "image": "/images/products/ps5.png"
+      },
+      {
+        "label": "Midnight Black",
+        "swatch": "#1A202C",
+        "image": "/images/products/ps5.png"
+      }
+    ],
+    "storageOptions": [
+      {
+        "label": "1TB SSD"
+      }
+    ],
+    "description": "PlayStation 5 Slim offers lightning-fast load times, immersive gameplay experiences, and breathtaking graphics powered by next-generation gaming technology.",
+    "specifications": [
+      {
+        "label": "Storage",
+        "value": "1TB SSD"
+      },
+      {
+        "label": "Resolution",
+        "value": "Up to 8K"
+      },
+      {
+        "label": "Performance",
+        "value": "120 FPS Support"
+      },
+      {
+        "label": "Ray Tracing",
+        "value": "Supported"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "brand": "Apple",
+    "name": "MacBook Pro M3",
+    "originalPrice": "$2,199.00",
+    "salePrice": "$1,999.00",
+    "badge": "New",
+    "rating": 5.0,
+    "reviewCount": 87,
+    "colorOptions": [
+      {
+        "label": "Space Black",
+        "swatch": "#1A202C",
+        "image": "/images/products/macbook.png"
+      },
+      {
+        "label": "Silver",
+        "swatch": "#CBD5E0",
+        "image": "/images/products/macbook.png"
+      }
+    ],
+    "storageOptions": [
+      {
+        "label": "512GB SSD"
+      },
+      {
+        "label": "1TB SSD",
+        "priceSuffix": "+$400"
+      }
+    ],
+    "description": "MacBook Pro with M3 chip delivers exceptional speed, all-day battery life, and a stunning Liquid Retina XDR display for professionals and creators.",
+    "specifications": [
+      {
+        "label": "Screen Size",
+        "value": "14 inches"
+      },
+      {
+        "label": "Processor",
+        "value": "Apple M3 Pro"
+      },
+      {
+        "label": "Memory",
+        "value": "18GB Unified Memory"
+      },
+      {
+        "label": "Battery Life",
+        "value": "Up to 22 hours"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "brand": "DJI",
+    "name": "DJI Mini 4 Pro",
+    "originalPrice": "$999.00",
+    "salePrice": "$899.00",
+    "badge": "Popular",
+    "rating": 4.7,
+    "reviewCount": 63,
+    "colorOptions": [
+      {
+        "label": "Gray",
+        "swatch": "#A0AEC0",
+        "image": "/images/products/dji-mini.png"
+      }
+    ],
+    "storageOptions": [
+      {
+        "label": "Standard Combo"
+      },
+      {
+        "label": "Fly More Combo",
+        "priceSuffix": "+$250"
+      }
+    ],
+    "description": "The DJI Mini 4 Pro is a compact drone with intelligent flight modes, cinematic 4K HDR video, and advanced obstacle sensing for creators on the go.",
+    "specifications": [
+      {
+        "label": "Camera",
+        "value": "4K HDR Video"
+      },
+      {
+        "label": "Flight Time",
+        "value": "34 Minutes"
+      },
+      {
+        "label": "Weight",
+        "value": "Under 249g"
+      },
+      {
+        "label": "Obstacle Avoidance",
+        "value": "Omnidirectional"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "brand": "Logitech",
+    "name": "Logitech G Pro X TKL",
+    "originalPrice": "$249.00",
+    "salePrice": "$199.00",
+    "badge": "Sale",
+    "rating": 4.8,
+    "reviewCount": 96,
+    "colorOptions": [
+      {
+        "label": "Black",
+        "swatch": "#111827",
+        "image": "/images/products/logitech-keyboard.png"
+      },
+      {
+        "label": "White",
+        "swatch": "#F7FAFC",
+        "image": "/images/products/logitech-keyboard.png"
+      }
+    ],
+    "storageOptions": [
+      {
+        "label": "GX Blue Switches"
+      },
+      {
+        "label": "GX Red Switches"
+      }
+    ],
+    "description": "Designed for esports professionals, the Logitech G Pro X TKL offers ultra-fast wireless performance, customizable RGB lighting, and premium mechanical switches.",
+    "specifications": [
+      {
+        "label": "Connection",
+        "value": "LIGHTSPEED Wireless"
+      },
+      {
+        "label": "Switch Type",
+        "value": "Mechanical GX"
+      },
+      {
+        "label": "Battery Life",
+        "value": "Up to 50 Hours"
+      },
+      {
+        "label": "Lighting",
+        "value": "RGB LIGHTSYNC"
+      }
+    ]
+  }
+]
