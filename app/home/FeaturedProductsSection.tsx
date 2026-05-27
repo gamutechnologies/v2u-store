@@ -41,17 +41,30 @@ const ALL_PRODUCTS: Product[] = [
     badge: "New",
     category: "Phones",
     featured: true,
-    description: "The iPhone 17 Pro Max features a titanium design, A19 Pro chip, upgraded camera system, and the Action button — engineered for extraordinary performance.",
+    description:
+      "The iPhone 17 Pro Max features a titanium design, A19 Pro chip, upgraded camera system, and the Action button — engineered for extraordinary performance.",
     colorOptions: [
-      { label: "Cosmic Orange",  swatch: "#F97316", image: "/images/product/iphone17promax-orange.webp" },
-      { label: "Deep Blue",      swatch: "#1C1C1E", image: "/images/product/iphone17promax-blue.webp"   },
-      { label: "Silver",         swatch: "#C4B49E", image: "/images/product/iphone17promax-silver.webp" },
+      {
+        label: "Cosmic Orange",
+        swatch: "#F97316",
+        image: "/images/product/iphone17promax-orange.webp",
+      },
+      {
+        label: "Deep Blue",
+        swatch: "#1C1C1E",
+        image: "/images/product/iphone17promax-blue.webp",
+      },
+      {
+        label: "Silver",
+        swatch: "#C4B49E",
+        image: "/images/product/iphone17promax-silver.webp",
+      },
     ],
     storageOptions: [
       { label: "256 GB" },
       { label: "512 GB", priceSuffix: "+$100" },
-      { label: "1 TB",   priceSuffix: "+$200" },
-      { label: "2 TB",   priceSuffix: "+$300" },
+      { label: "1 TB", priceSuffix: "+$200" },
+      { label: "2 TB", priceSuffix: "+$300" },
     ],
   },
   {
@@ -63,16 +76,29 @@ const ALL_PRODUCTS: Product[] = [
     badge: "Hot",
     category: "Phones",
     featured: true,
-    description: "Galaxy S25 Ultra delivers premium performance with Galaxy AI, an advanced 200MP quad-camera, built-in S Pen, and a stunning 6.9-inch AMOLED display.",
+    description:
+      "Galaxy S25 Ultra delivers premium performance with Galaxy AI, an advanced 200MP quad-camera, built-in S Pen, and a stunning 6.9-inch AMOLED display.",
     colorOptions: [
-      { label: "Titanium Black",  swatch: "#2C2C2E", image: "/images/product/galaxy-black.png"  },
-      { label: "Titanium Silver", swatch: "#A8A8A8", image: "/images/product/galaxy-silver.png" },
-      { label: "Titanium Blue",   swatch: "#3A5A8C", image: "/images/product/galaxy-blue.png"   },
+      {
+        label: "Titanium Black",
+        swatch: "#2C2C2E",
+        image: "/images/product/galaxy-black.png",
+      },
+      {
+        label: "Titanium Silver",
+        swatch: "#A8A8A8",
+        image: "/images/product/galaxy-silver.png",
+      },
+      {
+        label: "Titanium Blue",
+        swatch: "#3A5A8C",
+        image: "/images/product/galaxy-blue.png",
+      },
     ],
     storageOptions: [
       { label: "256 GB" },
       { label: "512 GB", priceSuffix: "+$100" },
-      { label: "1 TB",   priceSuffix: "+$200" },
+      { label: "1 TB", priceSuffix: "+$200" },
     ],
   },
   {
@@ -85,8 +111,16 @@ const ALL_PRODUCTS: Product[] = [
     category: "Laptops",
     featured: true,
     colorOptions: [
-      { label: "Space Black", swatch: "#1C1C1E", image: "/images/product/macbook-black.png"  },
-      { label: "Silver",      swatch: "#A8A8A8", image: "/images/product/macbook-silver.png" },
+      {
+        label: "Space Black",
+        swatch: "#1C1C1E",
+        image: "/images/product/macbook-black.png",
+      },
+      {
+        label: "Silver",
+        swatch: "#A8A8A8",
+        image: "/images/product/macbook-silver.png",
+      },
     ],
     storageOptions: [
       { label: "512 GB" },
@@ -104,8 +138,16 @@ const ALL_PRODUCTS: Product[] = [
     category: "Laptops",
     featured: true,
     colorOptions: [
-      { label: "Eclipse Gray",   swatch: "#3A3A3C", image: "/images/product/rog-gray.png"  },
-      { label: "Platinum White", swatch: "#F0EFEB", image: "/images/product/rog-white.png" },
+      {
+        label: "Eclipse Gray",
+        swatch: "#3A3A3C",
+        image: "/images/product/rog-gray.png",
+      },
+      {
+        label: "Platinum White",
+        swatch: "#F0EFEB",
+        image: "/images/product/rog-white.png",
+      },
     ],
     storageOptions: [
       { label: "1 TB" },
@@ -122,9 +164,21 @@ const ALL_PRODUCTS: Product[] = [
     category: "Audio",
     featured: true,
     colorOptions: [
-      { label: "Midnight Black",  swatch: "#1A1A1A", image: "/images/product/headphones-black.png"  },
-      { label: "Platinum Silver", swatch: "#C0C0C0", image: "/images/product/headphones-silver.png" },
-      { label: "Midnight Blue",   swatch: "#1B2A4A", image: "/images/product/headphones-blue.png"   },
+      {
+        label: "Midnight Black",
+        swatch: "#1A1A1A",
+        image: "/images/product/headphones-black.png",
+      },
+      {
+        label: "Platinum Silver",
+        swatch: "#C0C0C0",
+        image: "/images/product/headphones-silver.png",
+      },
+      {
+        label: "Midnight Blue",
+        swatch: "#1B2A4A",
+        image: "/images/product/headphones-blue.png",
+      },
     ],
   },
   {
@@ -137,8 +191,16 @@ const ALL_PRODUCTS: Product[] = [
     category: "Audio",
     featured: false, // hidden
     colorOptions: [
-      { label: "Jet Black", swatch: "#1A1A1A", image: "/images/product/jbl-black.png" },
-      { label: "Cobalt",    swatch: "#0047AB", image: "/images/product/jbl-blue.png"  },
+      {
+        label: "Jet Black",
+        swatch: "#1A1A1A",
+        image: "/images/product/jbl-black.png",
+      },
+      {
+        label: "Cobalt",
+        swatch: "#0047AB",
+        image: "/images/product/jbl-blue.png",
+      },
     ],
   },
   {
@@ -151,8 +213,16 @@ const ALL_PRODUCTS: Product[] = [
     category: "Gaming",
     featured: true,
     colorOptions: [
-      { label: "Carbon Black", swatch: "#1A1A1A", image: "/images/product/gpro-black.png" },
-      { label: "Ghost White",  swatch: "#F5F5F0", image: "/images/product/gpro-white.png" },
+      {
+        label: "Carbon Black",
+        swatch: "#1A1A1A",
+        image: "/images/product/gpro-black.png",
+      },
+      {
+        label: "Ghost White",
+        swatch: "#F5F5F0",
+        image: "/images/product/gpro-white.png",
+      },
     ],
   },
   {
@@ -164,7 +234,11 @@ const ALL_PRODUCTS: Product[] = [
     category: "Gaming",
     featured: true,
     colorOptions: [
-      { label: "Matte Black", swatch: "#1A1A1A", image: "/images/product/odyssey-black.png" },
+      {
+        label: "Matte Black",
+        swatch: "#1A1A1A",
+        image: "/images/product/odyssey-black.png",
+      },
     ],
   },
   {
@@ -177,9 +251,21 @@ const ALL_PRODUCTS: Product[] = [
     category: "Wearables",
     featured: true,
     colorOptions: [
-      { label: "Titanium", swatch: "#8A8A8A", image: "/images/product/watch-titanium.png" },
-      { label: "Black",    swatch: "#1C1C1E", image: "/images/product/watch-black.png"    },
-      { label: "Natural",  swatch: "#C4B49E", image: "/images/product/watch-natural.png"  },
+      {
+        label: "Titanium",
+        swatch: "#8A8A8A",
+        image: "/images/product/watch-titanium.png",
+      },
+      {
+        label: "Black",
+        swatch: "#1C1C1E",
+        image: "/images/product/watch-black.png",
+      },
+      {
+        label: "Natural",
+        swatch: "#C4B49E",
+        image: "/images/product/watch-natural.png",
+      },
     ],
   },
 ];
@@ -194,8 +280,13 @@ const CARDS_PER_PAGE = 4; // always show exactly 4
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 16, scale: 0.97 },
   show: {
-    opacity: 1, y: 0, scale: 1,
-    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.4,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    },
   },
 };
 
@@ -208,16 +299,17 @@ const containerVariants: Variants = {
 
 export default function FeaturedProductsSection() {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [page, setPage]                     = useState(0);
-  const [direction, setDirection]           = useState(1); // 1 = forward, -1 = back
-  const constraintsRef                      = useRef(null);
+  const [page, setPage] = useState(0);
+  const [direction, setDirection] = useState(1); // 1 = forward, -1 = back
+  const constraintsRef = useRef(null);
 
   // Filtered product list
   const visibleProducts = useMemo(() => {
     const featured = ALL_PRODUCTS.filter((p) => p.featured);
-    const filtered = activeCategory === "All"
-      ? featured
-      : featured.filter((p) => p.category === activeCategory);
+    const filtered =
+      activeCategory === "All"
+        ? featured
+        : featured.filter((p) => p.category === activeCategory);
     return filtered;
   }, [activeCategory]);
 
@@ -240,19 +332,31 @@ export default function FeaturedProductsSection() {
 
   const countFor = (cat: string) => {
     const featured = ALL_PRODUCTS.filter((p) => p.featured);
-    return cat === "All" ? featured.length : featured.filter((p) => p.category === cat).length;
+    return cat === "All"
+      ? featured.length
+      : featured.filter((p) => p.category === cat).length;
   };
 
   // Slide variants for page transitions
   const slideVariants: Variants = {
-    enter:  (d: number) => ({ opacity: 0, x: d * 40 }),
-    center: { opacity: 1, x: 0, transition: { duration: 0.38, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } },
-    exit:   (d: number) => ({ opacity: 0, x: d * -30, transition: { duration: 0.22 } }),
+    enter: (d: number) => ({ opacity: 0, x: d * 40 }),
+    center: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.38,
+        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+      },
+    },
+    exit: (d: number) => ({
+      opacity: 0,
+      x: d * -30,
+      transition: { duration: 0.22 },
+    }),
   };
 
   return (
     <section className="relative overflow-hidden bg-[#F0F6FF] py-16">
-
       {/* Glow orbs */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute left-[-6%] top-[0%] h-80 w-80 rounded-full bg-[#0066FF]/10 blur-3xl" />
@@ -260,7 +364,6 @@ export default function FeaturedProductsSection() {
       </div>
 
       <div className="relative w-full px-8 lg:px-16">
-
         {/* ── Header row ──────────────────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -271,10 +374,6 @@ export default function FeaturedProductsSection() {
         >
           {/* Left */}
           <div className="flex items-center gap-6">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#7DBBFF]/20 bg-white px-4 py-1.5">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#0066FF]" />
-              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#0066FF]">Featured</span>
-            </div>
             <h2 className="text-3xl font-black tracking-tight text-gray-900 md:text-4xl">
               Hand-Picked{" "}
               <span className="bg-linear-to-r from-[#0066FF] to-[#7DBBFF] bg-clip-text text-transparent">
@@ -301,7 +400,10 @@ export default function FeaturedProductsSection() {
               aria-label="Previous"
               className="group flex h-9 w-9 items-center justify-center rounded-xl border border-[#7DBBFF]/20 bg-white shadow-sm transition-all duration-200 hover:border-[#0066FF]/30 hover:bg-[#F0F6FF] disabled:cursor-not-allowed disabled:opacity-30"
             >
-              <ChevronLeft size={15} className="text-gray-500 transition-colors duration-200 group-hover:text-[#0066FF]" />
+              <ChevronLeft
+                size={15}
+                className="text-gray-500 transition-colors duration-200 group-hover:text-[#0066FF]"
+              />
             </motion.button>
 
             {/* Next */}
@@ -313,8 +415,13 @@ export default function FeaturedProductsSection() {
               aria-label="Next"
               className="group flex h-9 w-9 items-center justify-center rounded-xl border border-[#7DBBFF]/20 bg-white shadow-sm transition-all duration-200 hover:border-[#0066FF]/30 hover:bg-[#F0F6FF] disabled:cursor-not-allowed disabled:opacity-30"
             >
-              <ChevronRight size={15} className="text-gray-500 transition-colors duration-200 group-hover:text-[#0066FF]" />
+              <ChevronRight
+                size={15}
+                className="text-gray-500 transition-colors duration-200 group-hover:text-[#0066FF]"
+              />
             </motion.button>
+
+            <div className="h-5 w-px bg-[#7DBBFF]/25" />
 
             {/* View all */}
             <Link href="/shop">
@@ -324,7 +431,10 @@ export default function FeaturedProductsSection() {
                 className="group hidden items-center gap-2 rounded-xl border border-[#7DBBFF]/25 bg-white px-5 py-2.5 text-xs font-semibold text-gray-700 shadow-sm transition-all duration-200 hover:border-[#0066FF]/30 hover:bg-[#F0F6FF] hover:text-[#0066FF] sm:inline-flex"
               >
                 View All
-                <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-1" />
+                <ArrowRight
+                  size={13}
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                />
               </motion.span>
             </Link>
           </div>
@@ -357,7 +467,9 @@ export default function FeaturedProductsSection() {
                 {cat}
                 <span
                   className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold leading-none ${
-                    isActive ? "bg-white/20 text-white" : "bg-[#0066FF]/10 text-[#0066FF]"
+                    isActive
+                      ? "bg-white/20 text-white"
+                      : "bg-[#0066FF]/10 text-[#0066FF]"
                   }`}
                 >
                   {count}
@@ -386,7 +498,11 @@ export default function FeaturedProductsSection() {
                   className="grid grid-cols-2 gap-4 xl:grid-cols-4"
                 >
                   {pageProducts.map((product) => (
-                    <motion.div key={product.id} variants={cardVariants} className="h-full">
+                    <motion.div
+                      key={product.id}
+                      variants={cardVariants}
+                      className="h-full"
+                    >
                       <ProductCard
                         id={product.id}
                         brand={product.brand}
@@ -419,7 +535,9 @@ export default function FeaturedProductsSection() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-[#0066FF] to-[#7DBBFF] text-white">
                   <Sparkles size={22} />
                 </div>
-                <p className="text-sm font-bold text-gray-700">No featured products here</p>
+                <p className="text-sm font-bold text-gray-700">
+                  No featured products here
+                </p>
                 <button
                   onClick={() => handleCategoryChange("All")}
                   className="rounded-full bg-linear-to-r from-[#0066FF] to-[#7DBBFF] px-6 py-2.5 text-xs font-semibold text-white"
@@ -435,7 +553,11 @@ export default function FeaturedProductsSection() {
         {totalPages > 1 && (
           <div className="mt-6 flex items-center justify-center gap-2">
             {Array.from({ length: totalPages }).map((_, i) => (
-              <button key={i} onClick={() => goTo(i)} aria-label={`Page ${i + 1}`}>
+              <button
+                key={i}
+                onClick={() => goTo(i)}
+                aria-label={`Page ${i + 1}`}
+              >
                 <motion.span
                   animate={{
                     width: i === page ? 24 : 7,
@@ -474,11 +596,13 @@ export default function FeaturedProductsSection() {
               className="group inline-flex shrink-0 items-center gap-2 rounded-md bg-linear-to-r from-[#0066FF] to-[#7DBBFF] px-7 py-3 text-sm font-bold text-white shadow-[0_0_22px_rgba(0,102,255,0.25)]"
             >
               Explore Full Shop
-              <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
+              <ArrowRight
+                size={15}
+                className="transition-transform duration-200 group-hover:translate-x-1"
+              />
             </motion.span>
           </Link>
         </motion.div>
-
       </div>
     </section>
   );

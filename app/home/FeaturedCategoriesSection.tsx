@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, ChevronRight } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
@@ -52,6 +52,9 @@ const categories = [
 export default function FeaturedCategoriesSection() {
   const swiperRef = useRef<SwiperType | null>(null);
 
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
+
   return (
     <section className="relative overflow-hidden bg-[#F5F7FA] py-16">
       {/* Glow line top */}
@@ -74,13 +77,6 @@ export default function FeaturedCategoriesSection() {
         >
           {/* Left */}
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#7DBBFF]/20 bg-white px-4 py-1.5">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#0066FF]" />
-              <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-[#0066FF]">
-                Categories
-              </span>
-            </div>
-
             <h2 className="mt-4 text-3xl font-black tracking-tight text-gray-900 md:text-4xl">
               Shop By{" "}
               <span className="bg-linear-to-r from-[#0066FF] to-[#7DBBFF] bg-clip-text text-transparent">
@@ -95,43 +91,62 @@ export default function FeaturedCategoriesSection() {
 
           {/* Right: nav + view all */}
           <div className="flex items-center gap-3">
-            <Link href="/shop">
-              <motion.span
-                whileHover={{ scale: 1.04, x: 2 }}
-                whileTap={{ scale: 0.97 }}
-                className="group inline-flex cursor-pointer items-center gap-1.5 text-xs font-semibold text-gray-500 transition-colors duration-200 hover:text-[#0066FF]"
-              >
-                View All
-                <ChevronRight
-                  size={13}
-                  className="transition-transform duration-200 group-hover:translate-x-0.5"
-                />
-              </motion.span>
-            </Link>
-
-            <div className="h-5 w-px bg-[#7DBBFF]/25" />
-
             {/* Prev */}
             <button
               onClick={() => swiperRef.current?.slidePrev()}
-              className="group flex h-9 w-9 items-center justify-center rounded-xl border border-[#7DBBFF]/20 bg-white shadow-sm transition-all duration-200 hover:border-[#0066FF]/30 hover:bg-[#F0F6FF]"
+              disabled={isBeginning}
+              className={`group flex h-9 w-9 items-center justify-center rounded-xl border shadow-sm transition-all duration-200 ${
+                isBeginning
+                  ? "cursor-not-allowed border-gray-200 bg-gray-100 opacity-50"
+                  : "border-[#7DBBFF]/20 bg-white hover:border-[#0066FF]/30 hover:bg-[#F0F6FF]"
+              }`}
             >
               <ArrowLeft
                 size={15}
-                className="text-gray-500 transition-colors duration-200 group-hover:text-[#0066FF]"
+                className={`transition-colors duration-200 ${
+                  isBeginning
+                    ? "text-gray-300"
+                    : "text-gray-500 group-hover:text-[#0066FF]"
+                }`}
               />
             </button>
 
             {/* Next */}
             <button
               onClick={() => swiperRef.current?.slideNext()}
-              className="group flex h-9 w-9 items-center justify-center rounded-xl border border-[#7DBBFF]/20 bg-white shadow-sm transition-all duration-200 hover:border-[#0066FF]/30 hover:bg-[#F0F6FF]"
+              disabled={isEnd}
+              className={`group flex h-9 w-9 items-center justify-center rounded-xl border shadow-sm transition-all duration-200 ${
+                isEnd
+                  ? "cursor-not-allowed border-gray-200 bg-gray-100 opacity-50"
+                  : "border-[#7DBBFF]/20 bg-white hover:border-[#0066FF]/30 hover:bg-[#F0F6FF]"
+              }`}
             >
               <ArrowRight
                 size={15}
-                className="text-gray-500 transition-colors duration-200 group-hover:text-[#0066FF]"
+                className={`transition-colors duration-200 ${
+                  isEnd
+                    ? "text-gray-300"
+                    : "text-gray-500 group-hover:text-[#0066FF]"
+                }`}
               />
             </button>
+
+            <div className="h-5 w-px bg-[#7DBBFF]/25" />
+
+            {/* View all */}
+            <Link href="/shop">
+              <motion.span
+                whileHover={{ scale: 1.04, y: -1 }}
+                whileTap={{ scale: 0.97 }}
+                className="group hidden items-center gap-2 rounded-xl border border-[#7DBBFF]/25 bg-white px-5 py-2.5 text-xs font-semibold text-gray-700 shadow-sm transition-all duration-200 hover:border-[#0066FF]/30 hover:bg-[#F0F6FF] hover:text-[#0066FF] sm:inline-flex"
+              >
+                View All
+                <ArrowRight
+                  size={13}
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                />
+              </motion.span>
+            </Link>
           </div>
         </motion.div>
 
@@ -142,6 +157,12 @@ export default function FeaturedCategoriesSection() {
           slidesPerView={2}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
+            setIsBeginning(swiper.isBeginning);
+            setIsEnd(swiper.isEnd);
+          }}
+          onSlideChange={(swiper) => {
+            setIsBeginning(swiper.isBeginning);
+            setIsEnd(swiper.isEnd);
           }}
           breakpoints={{
             480: { slidesPerView: 3 },
@@ -162,12 +183,10 @@ export default function FeaturedCategoriesSection() {
                   <motion.div
                     whileHover={{ y: -6 }}
                     transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-                    className="group relative flex cursor-pointer flex-col items-center overflow-hidden rounded-2xl border border-[#7DBBFF]/15 bg-white shadow-[0_2px_12px_rgba(0,102,255,0.04)] transition-shadow duration-300 hover:border-[#7DBBFF]/35 hover:shadow-[0_8px_24px_rgba(0,102,255,0.10)]"
+                    className="group relative flex cursor-pointer flex-col items-center overflow-hidden rounded-2xl bg-sky-200/15 transition-shadow duration-300 hover:bg-white"
                   >
                     {/* Image area */}
-                    <div
-                      className="flex w-full items-center justify-center px-4 pt-8 pb-6 transition-colors duration-300"
-                    >
+                    <div className="flex w-full items-center justify-center px-4 pt-8 pb-6 transition-colors duration-300">
                       <div className="relative flex h-44 w-full items-center justify-center">
                         <Image
                           src={cat.image}
@@ -196,9 +215,6 @@ export default function FeaturedCategoriesSection() {
           ))}
         </Swiper>
       </div>
-
-      {/* Glow line bottom */}
-      <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-[#7DBBFF]/15 to-transparent" />
     </section>
   );
 }

@@ -21,10 +21,10 @@ export default function Home() {
       <HeroStatsBar />
       <HeroEditorialGrid />
       <ExpandingShowcaseSection />
-      <BrandShowcaseSection />
       <FeaturedCategoriesSection />
       <FeaturedProductsSection />
       <PromoBannerSection />
+      <BrandShowcaseSection />
       <WhyChooseUsSection />
       <JoinCommunitySection />
     </>

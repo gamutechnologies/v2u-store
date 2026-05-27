@@ -4,177 +4,215 @@ import { motion } from "framer-motion";
 import {
   ShieldCheck,
   Truck,
-  Headphones,
-  CreditCard,
   Sparkles,
   BadgeCheck,
   ArrowRight,
+  Star,
+  Globe,
+  Package,
 } from "lucide-react";
 import Link from "next/link";
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
-
 const features = [
   {
+    num: "01",
     icon: ShieldCheck,
     title: "Premium Warranty",
-    description: "Trusted warranty coverage and quality assurance on every product.",
+    description:
+      "Every product ships with trusted warranty coverage and rigorous quality checks before it reaches you.",
+    accent: "#0066FF",
+    glowColor: "rgba(0,102,255,0.12)",
   },
   {
+    num: "02",
     icon: Truck,
     title: "Fast Delivery",
-    description: "Lightning-fast shipping and secure delivery across the country.",
+    description:
+      "Lightning-fast dispatch and door-to-door tracking so your tech arrives exactly when promised.",
+    accent: "#0066FF",
+    glowColor: "rgba(0,102,255,0.10)",
   },
   {
+    num: "03",
     icon: Sparkles,
     title: "Latest Technology",
-    description: "Access the newest premium gadgets and futuristic electronics.",
+    description:
+      "We curate only the newest flagship devices — from day-one launches to exclusive limited editions.",
+    accent: "#0066FF",
+    glowColor: "rgba(0,102,255,0.12)",
   },
   {
+    num: "04",
     icon: BadgeCheck,
     title: "Trusted Brands",
-    description: "Authentic products from globally recognised tech companies.",
+    description:
+      "100 % authentic products sourced directly from Apple, Samsung, Sony, Razer, and 8+ global brands.",
+    accent: "#0066FF",
+    glowColor: "rgba(0,102,255,0.10)",
   },
 ];
 
-// ─── Animation helpers ────────────────────────────────────────────────────────
+const stats = [
+  { icon: Package, value: "10K+", label: "Products" },
+  { icon: Globe, value: "146+", label: "Countries Served" },
+  { icon: Star, value: "4.9★", label: "Average Rating" },
+];
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 20 },
+  initial: { opacity: 0, y: 28 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
   transition: {
-    duration: 0.55,
+    duration: 0.6,
     delay,
     ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
   },
 });
 
-// ─── Component ────────────────────────────────────────────────────────────────
-
 export default function WhyChooseUsSection() {
   return (
-    <section className="relative overflow-hidden bg-white px-6 py-6 lg:px-12">
-
-      {/* Glow orbs */}
+    <section className="relative overflow-hidden bg-linear-to-b from-[#ffffff] via-[#f8fbff] to-[#7bb0ff] px-5 py-16 sm:px-8 lg:px-16 lg:py-24">
+      {/* Ambient glows */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[-5%] top-[-10%] h-80 w-80 rounded-full bg-[#0066FF]/8 blur-[100px]" />
-        <div className="absolute bottom-[-10%] right-[-5%] h-80 w-80 rounded-full bg-[#7DBBFF]/12 blur-[80px]" />
+        <div className="absolute left-[-6%] top-[-8%]      h-105 w-105 rounded-full bg-[#0066FF]/6  blur-[120px]" />
+        <div className="absolute bottom-[-8%] right-[-4%]  h-95 w-95 rounded-full bg-[#7DBBFF]/10 blur-[100px]" />
       </div>
 
-      <div className="relative mx-auto max-w-280">
-
-        {/* MAIN CONTAINER — left panel + right feature list */}
-        <div className="overflow-hidden rounded-lg border border-[#7DBBFF]/15 bg-white shadow-[0_4px_40px_rgba(0,102,255,0.06)]">
-          <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr]">
-
-            {/* LEFT PANEL — blue gradient with heading + stats */}
-            <motion.div
-              {...fadeUp(0)}
-              className="relative flex flex-col justify-between overflow-hidden bg-linear-to-br from-[#0052CC] via-[#0066FF] to-[#7DBBFF] p-10"
-            >
-              {/* Decorative circles */}
-              <div className="pointer-events-none absolute -right-12 -top-12 h-56 w-56 rounded-full border border-white/10" />
-              <div className="pointer-events-none absolute -bottom-8 -right-8 h-40 w-40 rounded-full border border-white/10" />
-              <div className="pointer-events-none absolute right-8 top-8 h-24 w-24 rounded-full border border-white/10" />
-              {/* Dot grid */}
-              <div
-                className="pointer-events-none absolute inset-0 opacity-15"
-                style={{
-                  backgroundImage: "radial-gradient(circle, #ffffff22 1px, transparent 1px)",
-                  backgroundSize: "24px 24px",
-                }}
-              />
-
-              <div className="relative z-10">
-                {/* Label */}
-                <div className="inline-flex items-center gap-2 rounded-md border border-white/20 bg-white/10 px-4 py-1.5 backdrop-blur-sm">
-                  <Sparkles size={10} className="text-white/80" />
-                  <span className="text-xs font-bold uppercase tracking-widest text-white/80">
-                    Why Choose Us
-                  </span>
-                </div>
-
-                {/* Heading */}
-                <h2 className="mt-6 text-3xl font-black leading-tight tracking-tight text-white md:text-4xl">
-                  <span className="block">Built For</span>
-                  <span className="block opacity-80">Tech Lovers.</span>
-                </h2>
-
-                <p className="mt-5 text-sm leading-7 text-white/65">
-                  We deliver a premium
-                  products, trusted brands, fast service, and smarter shopping.
-                </p>
-
-                {/* CTA */}
-                <Link href="/about">
-                  <motion.span
-                    whileHover={{ scale: 1.04, x: 3 }}
-                    whileTap={{ scale: 0.97 }}
-                    className="group mt-8 inline-flex cursor-pointer items-center gap-2 rounded-md border-2 border-white/30 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white backdrop-blur-sm transition-all duration-200 hover:border-white/60 hover:bg-white/20"
-                  >
-                    About V2U
-                    <ArrowRight
-                      size={14}
-                      className="transition-transform duration-200 group-hover:translate-x-1"
-                    />
-                  </motion.span>
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* ── RIGHT PANEL — 6 feature rows with separators ────────────── */}
-            <div className="divide-y divide-[#7DBBFF]/10 bg-[#FAFCFF]">
-              {features.map((f, i) => {
-                const Icon = f.icon;
-                return (
-                  <motion.div
-                    key={i}
-                    {...fadeUp(0.05 + i * 0.055)}
-                    whileHover={{ x: 6, backgroundColor: "#F0F6FF" }}
-                    transition={{ duration: 0.22 }}
-                    className="group flex items-start gap-5 px-16 py-6 transition-colors duration-200"
-                  >
-                    {/* Icon box */}
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-[#7DBBFF]/20 bg-white shadow-[0_2px_12px_rgba(0,102,255,0.08)] transition-all duration-300 group-hover:border-[#0066FF]/30 group-hover:shadow-[0_0_20px_rgba(0,102,255,0.15)]">
-                      <Icon
-                        size={20}
-                        className="text-[#0066FF] transition-transform duration-300 group-hover:scale-110"
-                      />
-                    </div>
-
-                    {/* Text */}
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-3">
-                        <h3 className="text-sm font-bold text-gray-900">
-                          {f.title}
-                        </h3>
-                        {/* Animated line that grows on hover */}
-                        <motion.div
-                          initial={{ scaleX: 0 }}
-                          whileInView={{ scaleX: 0 }}
-                          className="h-px origin-left flex-1 bg-linear-to-r from-[#0066FF]/40 to-transparent opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:scaleX-100"
-                          style={{ transformOrigin: "left" }}
-                        />
-                      </div>
-                      <p className="mt-1 text-xs leading-relaxed text-gray-500">
-                        {f.description}
-                      </p>
-                    </div>
-
-                    {/* Chevron indicator */}
-                    <ArrowRight
-                      size={14}
-                      className="mt-0.5 shrink-0 text-transparent transition-all duration-200 group-hover:text-[#0066FF]"
-                    />
-                  </motion.div>
-                );
-              })}
+      <div className="relative mx-auto max-w-7xl">
+        {/* HEADER ROW*/}
+        <div className="mb-12 flex flex-col gap-8 md:flex-row md:items-end md:justify-between lg:mb-16">
+          {/* Left */}
+          <motion.div {...fadeUp(0)} className="max-w-xl">
+            {/* Label pill */}
+            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#7DBBFF]/30 bg-[#F0F6FF] px-4 py-1.5">
+              <Sparkles size={11} className="text-[#0066FF]" />
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#0066FF]">
+                Why Choose V2U
+              </span>
             </div>
 
-          </div>
+            {/* Heading */}
+            <h2 className="text-4xl font-black leading-[1.05] tracking-tight text-gray-900 sm:text-5xl lg:text-[56px]">
+              Built for
+              <span className="relative ml-3 inline-block">
+                <span className="bg-linear-to-r from-[#0066FF] to-[#7DBBFF] bg-clip-text text-transparent">
+                  Tech
+                </span>
+              </span>
+              <span className="block mt-1 text-gray-900">Lovers.</span>
+            </h2>
+
+            <p className="mt-5 max-w-sm text-[14px] leading-7 text-gray-500">
+              From day-one product launches to lightning-fast delivery — we set
+              the standard for premium tech retail.
+            </p>
+
+            <Link href="/about">
+              <motion.span
+                whileHover={{ x: 4 }}
+                whileTap={{ scale: 0.97 }}
+                className="group mt-7 inline-flex cursor-pointer items-center gap-2 text-[13px] font-bold text-[#0066FF] transition-all duration-200"
+              >
+                Discover Our Story
+                <ArrowRight
+                  size={14}
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                />
+              </motion.span>
+            </Link>
+          </motion.div>
+
+          {/* Right — stat chips */}
+          <motion.div
+            {...fadeUp(0.12)}
+            className="flex flex-col gap-3 md:items-end"
+          >
+            {stats.map((s, i) => {
+              const Icon = s.icon;
+              return (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, x: 20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.15 + i * 0.08 }}
+                  className="flex w-full items-center gap-3 rounded-2xl border border-[#7DBBFF]/20 bg-[#F8FBFF] px-5 py-3 shadow-[0_2px_12px_rgba(0,102,255,0.05)] md:w-55"
+                >
+                  <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-linear-to-br from-[#0066FF] to-[#7DBBFF]">
+                    <Icon size={14} className="text-white" />
+                  </div>
+                  <div>
+                    <p className="text-[15px] font-black leading-none text-gray-900">
+                      {s.value}
+                    </p>
+                    <p className="mt-0.5 text-[10px] font-semibold text-gray-400">
+                      {s.label}
+                    </p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
         </div>
 
+        {/* FEATURE CARDS GRID */}
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {features.map((f, i) => {
+            const Icon = f.icon;
+            return (
+              <motion.div
+                key={i}
+                {...fadeUp(0.08 + i * 0.08)}
+                whileHover={{ y: -6, scale: 1.015 }}
+                transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                className="group relative flex flex-col overflow-hidden rounded-2xl border border-[#7DBBFF]/15 bg-[#F8FBFF] p-6 shadow-[0_2px_16px_rgba(0,102,255,0.04)] transition-shadow duration-300 hover:border-[#0066FF]/25 hover:shadow-[0_12px_36px_rgba(0,102,255,0.12)]"
+              >
+                {/* Watermark number */}
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute right-4 top-3 select-none text-[72px] font-black leading-none text-[#0066FF]/5 transition-all duration-300 group-hover:text-[#0066FF]/9"
+                >
+                  {f.num}
+                </span>
+
+                {/* Icon orb */}
+                <div className="relative mb-5 flex h-12 w-12 items-center justify-center rounded-2xl">
+                  {/* linear bg */}
+                  <div className="absolute inset-0 rounded-2xl bg-linear-to-br from-[#0066FF] to-[#7DBBFF] opacity-90 shadow-[0_0_20px_rgba(0,102,255,0.25)] transition-all duration-300 group-hover:shadow-[0_0_28px_rgba(0,102,255,0.4)]" />
+                  <Icon size={21} className="relative z-10 text-white" />
+                </div>
+
+                {/* Title */}
+                <h3 className="text-[15px] font-black leading-tight text-gray-900">
+                  {f.title}
+                </h3>
+
+                {/* Accent rule */}
+                <div className="mt-2.5 h-0.5 w-8 rounded-full bg-linear-to-r from-[#0066FF] to-[#7DBBFF] transition-all duration-300 group-hover:w-14" />
+
+                {/* Description */}
+                <p className="mt-3 text-[12.5px] leading-6 text-gray-500">
+                  {f.description}
+                </p>
+
+                {/* Bottom hover indicator */}
+                <div className="mt-auto pt-5">
+                  <motion.span
+                    initial={{ opacity: 0, x: -6 }}
+                    whileInView={{ opacity: 0 }}
+                    className="flex items-center gap-1.5 text-[11px] font-bold text-[#0066FF] opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                  >
+                    <span className="h-px w-4 rounded-full bg-[#0066FF]" />
+                    Learn more
+                  </motion.span>
+                </div>
+
+                {/* Bottom Gradient edge — appears on hover */}
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1 rounded-b-2xl bg-linear-to-r from-[#0066FF] to-[#7DBBFF] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

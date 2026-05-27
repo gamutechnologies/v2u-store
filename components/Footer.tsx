@@ -1,296 +1,228 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import {
-  ArrowRight,
-  Mail,
-  MapPin,
-  Phone,
-  Send,
-  ShieldCheck,
-  Truck,
-  Headphones,
-  CreditCard,
-} from "lucide-react";
+import { useRef } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, Mail, MapPin, Phone } from "lucide-react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faFacebookF,
+  faWhatsapp,
   faInstagram,
-  faXTwitter,
-  faYoutube,
   faTiktok,
+  faFacebookF,
 } from "@fortawesome/free-brands-svg-icons";
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
+const companyLinks = [
+  { label: "About",      href: "/about"   },
+  { label: "Shop",       href: "/shop"    },
+  { label: "Contact Us", href: "/contact" },
+];
 
-const footerNav = {
-  Shop: [
-    { label: "Laptops", href: "/shop" },
-    { label: "Phones", href: "/shop" },
-    { label: "Gaming", href: "/shop" },
-    { label: "Audio", href: "/shop" },
-    { label: "Wearables", href: "/shop" },
-    { label: "Accessories", href: "/shop" },
-  ],
-  Company: [
-    { label: "About", href: "/about" },
-    { label: "Contact Us", href: "/contact" },
-    { label: "Shop", href: "/shop" },
-  ],
-  Support: [
-    { label: "Help Center", href: "/" },
-    { label: "Track Order", href: "/" },
-    { label: "Shipping Info", href: "/" },
-    { label: "Returns", href: "/" },
-    { label: "Privacy Policy", href: "/" },
-  ],
-};
+const socialPlatforms = [
+  { icon: faWhatsapp,  label: "WhatsApp",  href: "https://chat.whatsapp.com/your-group-link", color: "#25D366", glow: "rgba(37,211,102,0.22)"  },
+  { icon: faInstagram, label: "Instagram", href: "https://instagram.com/v2uonline",            color: "#E1306C", glow: "rgba(225,48,108,0.22)"  },
+  { icon: faTiktok,    label: "TikTok",    href: "https://tiktok.com/@v2uonline",              color: "#111827", glow: "rgba(17,24,39,0.15)"    },
+  { icon: faFacebookF, label: "Facebook",  href: "https://facebook.com/v2uonline",             color: "#1877F2", glow: "rgba(24,119,242,0.22)"  },
+];
 
-const socialLinks = [
-  { icon: faFacebookF, label: "Facebook", href: "/", color: "#1877F2" },
-  { icon: faInstagram, label: "Instagram", href: "/", color: "#E1306C" },
-  { icon: faXTwitter, label: "X", href: "/", color: "#111827" },
-  { icon: faYoutube, label: "YouTube", href: "/", color: "#FF0000" },
-  { icon: faTiktok, label: "TikTok", href: "/", color: "#111827" },
+const contactInfo = [
+  { icon: MapPin, text: "Dubai, UAE & Colombo, Sri Lanka" },
+  { icon: Phone,  text: "+94 77 123 4567"                 },
+  { icon: Mail,   text: "support@v2ustore.com"            },
 ];
 
 const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true },
-  transition: {
-    duration: 0.6,
-    delay,
-    ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
-  },
+  initial:     { opacity: 0, y: 20 },
+  whileInView: { opacity: 1, y: 0  },
+  viewport:    { once: true        },
+  transition:  { duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
 });
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-  const [subStatus, setSubStatus] = useState<"idle" | "loading" | "done">(
-    "idle",
-  );
   const ref = useRef(null);
-  useInView(ref, { once: true, margin: "-80px" });
-
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim()) return;
-    setSubStatus("loading");
-    await new Promise((r) => setTimeout(r, 1100));
-    // Replace with: await fetch("/api/newsletter", { method: "POST", body: JSON.stringify({ email }) })
-    setSubStatus("done");
-    setEmail("");
-  };
 
   return (
     <footer ref={ref} className="relative overflow-hidden bg-white">
-      {/* ── Blue glow orbs (light theme) ───────────────────────────────────── */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute left-[-8%] top-[-5%] h-125 w-125 rounded-full bg-[#0066FF]/8 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-5%] h-112.5 w-112.5 rounded-full bg-[#7DBBFF]/15 blur-[100px]" />
-        <div className="absolute left-[40%] top-[30%] h-75 w-75 rounded-full bg-[#0066FF]/5 blur-[80px]" />
+
+      {/* Ambient glows */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <div className="absolute left-[-6%] top-[-8%]      h-125 w-125 rounded-full bg-[#0066FF]/6  blur-[130px]" />
+        <div className="absolute bottom-[-10%] right-[-4%] h-105 w-105 rounded-full bg-[#7DBBFF]/10 blur-[110px]" />
       </div>
 
-      {/* Subtle dot grid */}
+      {/* Dot grid */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-30"
+        className="pointer-events-none absolute inset-0 z-0 opacity-20"
         style={{
-          backgroundImage:
-            "radial-gradient(circle, #0066FF14 1px, transparent 1px)",
-          backgroundSize: "36px 36px",
+          backgroundImage: "radial-gradient(circle, #0066FF18 1px, transparent 1px)",
+          backgroundSize:  "34px 34px",
         }}
       />
 
-      {/* NEWSLETTER STRIP */}
-      <div className="relative border-b border-[#7DBBFF]/15">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 px-6 py-10 md:flex-row md:items-center">
-          <motion.div {...fadeUp(0.05)}>
-            <p className="text-xs font-bold uppercase tracking-widest text-[#0066FF]">
-              Stay in the loop
+      {/* MAIN BODY — 3 columns: Brand | Contact+Socials | Company */}
+      <div className="relative z-10 mx-auto max-w-7xl px-8 py-14 lg:px-16">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.6fr_1.1fr_0.7fr] lg:items-start">
+
+          {/* COL 1 — Brand */}
+          <motion.div {...fadeUp(0)}>
+            <Link href="/" className="block w-fit">
+              <motion.h2
+                whileHover={{ scale: 1.012 }}
+                transition={{ duration: 0.2 }}
+                className="select-none text-[130px] font-black leading-none tracking-tighter text-gray-900 lg:text-[160px]"
+              >
+                V
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{ backgroundImage: "linear-gradient(135deg, #0066FF 0%, #7DBBFF 100%)" }}
+                >
+                  2
+                </span>
+                U
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{ backgroundImage: "linear-gradient(135deg, #0066FF 0%, #7DBBFF 100%)" }}
+                >
+                  .
+                </span>
+              </motion.h2>
+            </Link>
+
+            <p className="mt-5 max-w-67.5 text-[13px] leading-6 text-gray-500">
+              A next-generation premium tech store delivering cutting-edge
+              electronics and smart accessories worldwide.
             </p>
-            <h3 className="mt-1.5 text-2xl font-black text-gray-900 md:text-3xl">
-              Get the latest drops &amp; deals
-            </h3>
           </motion.div>
 
-          <motion.form
-            {...fadeUp(0.15)}
-            onSubmit={handleSubscribe}
-            className="flex w-full max-w-md items-center overflow-hidden rounded-full border border-[#7DBBFF]/25 bg-[#F0F6FF] p-1.5 shadow-[0_0_24px_rgba(0,102,255,0.07)] transition-all duration-300 focus-within:border-[#0066FF]/40 focus-within:shadow-[0_0_32px_rgba(0,102,255,0.12)]"
-          >
-            <Mail size={15} className="ml-4 shrink-0 text-[#0066FF]/50" />
-            {subStatus === "done" ? (
-              <p className="flex-1 px-4 text-sm font-semibold text-[#0066FF]">
-                Thanks! Check your inbox.
-              </p>
-            ) : (
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email address"
-                className="flex-1 bg-transparent px-4 text-sm text-gray-700 outline-none placeholder:text-gray-400"
-              />
-            )}
-            <motion.button
-              type="submit"
-              disabled={subStatus !== "idle"}
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.96 }}
-              className="flex shrink-0 items-center gap-2 rounded-full bg-linear-to-r from-[#0066FF] to-[#7DBBFF] px-6 py-2.5 text-sm font-bold text-white shadow-[0_0_18px_rgba(0,102,255,0.28)]"
-            >
-              {subStatus === "loading" ? (
-                <svg
-                  className="h-4 w-4 animate-spin"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8v8z"
-                  />
-                </svg>
-              ) : (
-                <>
-                  <Send size={13} /> Subscribe
-                </>
-              )}
-            </motion.button>
-          </motion.form>
-        </div>
-      </div>
+          {/* COL 2 — Contact info + Social icons */}
+          <motion.div {...fadeUp(0.09)} className="flex flex-col gap-5 lg:pt-1">
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          MAIN BODY
-          ══════════════════════════════════════════════════════════════════════ */}
-      <div className="relative mx-auto grid max-w-7xl grid-cols-1 gap-14 px-6 py-16 md:grid-cols-2 lg:grid-cols-[2.2fr_1fr_1fr_1fr]">
-        {/* Brand col */}
-        <motion.div {...fadeUp(0)}>
-          <Link href="/">
-            <motion.span
-              whileHover={{ scale: 1.04 }}
-              className="inline-block text-4xl font-extrabold tracking-tight text-gray-900"
-            >
-              V2U
-              <span className="text-[#0066FF]">.</span>
-            </motion.span>
-          </Link>
-
-          <p className="mt-5 max-w-xs text-sm leading-7 text-gray-500">
-            A next-generation premium tech store delivering cutting-edge
-            electronics, gaming devices, and smart accessories worldwide.
-          </p>
-
-          {/* Contact info */}
-          <div className="mt-8 flex flex-col gap-3">
-            {[
-              { icon: MapPin, text: "Dubai, UAE & Colombo, Sri Lanka" },
-              { icon: Phone, text: "+94 77 123 4567" },
-              { icon: Mail, text: "support@v2ustore.com" },
-            ].map((c, i) => {
+            {/* Contact rows */}
+            {contactInfo.map((c, i) => {
               const Icon = c.icon;
               return (
-                <div
+                <motion.div
                   key={i}
-                  className="flex items-center gap-3 text-sm text-gray-500"
+                  initial={{ opacity: 0, x: 12 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.38, delay: 0.12 + i * 0.07 }}
+                  className="flex items-center gap-3 text-[13px] text-gray-500"
                 >
-                  <Icon size={14} className="shrink-0 text-[#0066FF]" />
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg border border-[#7DBBFF]/25 bg-[#F0F6FF]">
+                    <Icon size={12} className="text-[#0066FF]" />
+                  </div>
                   <span>{c.text}</span>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
 
-          {/* Social icons */}
-          <div className="mt-8 flex items-center gap-2.5">
-            {socialLinks.map((s, i) => (
-              <motion.a
-                key={i}
-                href={s.href}
-                aria-label={s.label}
-                whileHover={{ y: -4, scale: 1.1 }}
-                whileTap={{ scale: 0.92 }}
-                className="flex h-10 w-10 items-center justify-center rounded-full border border-[#7DBBFF]/20 bg-[#F0F6FF] text-gray-400 transition-all duration-300"
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLElement;
-                  el.style.borderColor = `${s.color}50`;
-                  el.style.backgroundColor = `${s.color}12`;
-                  el.style.color = s.color;
-                  el.style.boxShadow = `0 0 16px ${s.color}25`;
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLElement;
-                  el.style.borderColor = "";
-                  el.style.backgroundColor = "";
-                  el.style.color = "";
-                  el.style.boxShadow = "";
-                }}
-              >
-                <FontAwesomeIcon icon={s.icon} className="text-xs" />
-              </motion.a>
-            ))}
-          </div>
-        </motion.div>
+            {/* Divider */}
+            <div className="h-px w-full bg-linear-to-r from-[#0066FF]/12 via-[#7DBBFF]/18 to-transparent" />
 
-        {/* Nav columns */}
-        {Object.entries(footerNav).map(([title, links], colIdx) => (
-          <motion.div key={title} {...fadeUp(0.07 + colIdx * 0.06)}>
-            <h4 className="mb-5 text-xs font-bold uppercase tracking-[0.18em] text-gray-400">
-              {title}
-            </h4>
-            <ul className="flex flex-col gap-3.5">
-              {links.map((link) => (
-                <li key={link.label}>
+            {/* Follow Us + social icons */}
+            <div className="flex flex-col gap-3">
+              <p className="text-[10px] font-black uppercase tracking-[0.22em] text-gray-400">
+                Follow Us
+              </p>
+              <div className="flex items-center gap-2">
+                {socialPlatforms.map((platform, i) => (
+                  <motion.a
+                    key={platform.label}
+                    href={platform.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={platform.label}
+                    initial={{ opacity: 0, y: 8 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.32, delay: 0.25 + i * 0.06 }}
+                    whileHover={{ y: -4, scale: 1.1 }}
+                    whileTap={{ scale: 0.93 }}
+                    className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#7DBBFF]/20 bg-[#F8FBFF] text-gray-400 shadow-[0_2px_8px_rgba(0,0,0,0.04)] transition-all duration-200"
+                    onMouseEnter={(e) => {
+                      const el = e.currentTarget as HTMLElement;
+                      el.style.backgroundColor = platform.color;
+                      el.style.borderColor     = platform.color;
+                      el.style.color           = "#ffffff";
+                      el.style.boxShadow       = `0 6px 18px ${platform.glow}`;
+                    }}
+                    onMouseLeave={(e) => {
+                      const el = e.currentTarget as HTMLElement;
+                      el.style.backgroundColor = "";
+                      el.style.borderColor     = "";
+                      el.style.color           = "";
+                      el.style.boxShadow       = "";
+                    }}
+                  >
+                    <FontAwesomeIcon icon={platform.icon} className="text-xs" />
+                  </motion.a>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* COL 3 — Company nav */}
+          <motion.div {...fadeUp(0.17)} className="lg:pt-1">
+            <div className="mb-4 flex items-center gap-2">
+              <div className="h-3 w-1 rounded-full bg-linear-to-b from-[#0066FF] to-[#7DBBFF]" />
+              <h4 className="text-[10px] font-black uppercase tracking-[0.22em] text-gray-400">
+                Company
+              </h4>
+            </div>
+
+            <ul className="flex flex-col gap-3">
+              {companyLinks.map((link, i) => (
+                <motion.li
+                  key={link.label}
+                  initial={{ opacity: 0, x: 10 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.32, delay: 0.22 + i * 0.07 }}
+                >
                   <Link href={link.href}>
                     <motion.span
-                      whileHover={{ x: 5 }}
-                      transition={{ duration: 0.18 }}
-                      className="group flex w-fit items-center gap-2 text-sm text-gray-500 transition-colors duration-200 hover:text-[#0066FF]"
+                      whileHover={{ x: 4 }}
+                      transition={{ duration: 0.15 }}
+                      className="group flex w-fit items-center gap-1.5 text-[13px] font-medium text-gray-500 transition-colors duration-200 hover:text-[#0066FF]"
                     >
-                      <span className="h-px w-0 rounded-full bg-[#0066FF] transition-all duration-200 group-hover:w-3" />
+                      <span className="h-px w-0 rounded-full bg-[#0066FF] transition-all duration-200 group-hover:w-2.5" />
                       {link.label}
                     </motion.span>
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </motion.div>
-        ))}
+
+        </div>
       </div>
 
-      {/* ══════════════════════════════════════════════════════════════════════
-          BOTTOM BAR
-          ══════════════════════════════════════════════════════════════════════ */}
-      <motion.div
-        {...fadeUp(0.18)}
-        className="relative border-t border-[#7DBBFF]/15"
-      >
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 py-6 text-xs text-gray-400 md:flex-row">
-          <p>
-            © {new Date().getFullYear()} V2U Tech Store. All rights reserved.
+      {/* BOTTOM BAR */}
+      <div className="relative z-10">
+        <div className="h-px w-full bg-linear-to-r from-transparent via-[#0066FF]/20 to-transparent" />
+
+        <motion.div
+          {...fadeUp(0.2)}
+          className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-8 py-5 text-[11px] text-gray-400 md:flex-row lg:px-16"
+        >
+          <p className="font-medium">
+            © {new Date().getFullYear()}{" "}
+            <span className="font-bold text-gray-600">V2U Tech Store</span>.{" "}
+            All rights reserved.
           </p>
 
-          <div className="flex items-center gap-5">
-            {["Terms", "Privacy", "Cookies", "Sitemap"].map((item) => (
-              <Link
-                key={item}
-                href="/"
-                className="transition-colors hover:text-[#0066FF]"
-              >
-                {item}
-              </Link>
+          <div className="flex items-center gap-1">
+            {["Terms", "Privacy", "Cookies", "Sitemap"].map((item, i, arr) => (
+              <span key={item} className="flex items-center gap-1">
+                <Link
+                  href="/"
+                  className="rounded-md px-2.5 py-1 font-semibold transition-colors hover:bg-[#F0F6FF] hover:text-[#0066FF]"
+                >
+                  {item}
+                </Link>
+                {i < arr.length - 1 && <span className="text-gray-200">·</span>}
+              </span>
             ))}
           </div>
 
@@ -298,13 +230,14 @@ export default function Footer() {
             whileHover={{ y: -3, scale: 1.06 }}
             whileTap={{ scale: 0.94 }}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="flex items-center gap-2 rounded-full border border-[#7DBBFF]/20 bg-[#F0F6FF] px-4 py-2 text-gray-500 transition-all duration-200 hover:border-[#0066FF]/30 hover:text-[#0066FF]"
+            className="flex items-center gap-2 rounded-full border border-[#7DBBFF]/25 bg-[#F0F6FF] px-4 py-2 font-semibold text-gray-500 transition-all duration-200 hover:border-[#0066FF]/30 hover:text-[#0066FF]"
           >
             Back to top
-            <ArrowRight size={12} className="-rotate-90" />
+            <ArrowRight size={11} className="-rotate-90" />
           </motion.button>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
+
     </footer>
   );
 }

@@ -10,8 +10,6 @@ import {
   faFacebookF,
 } from "@fortawesome/free-brands-svg-icons";
 
-// ─── Perks ────────────────────────────────────────────────────────────────────
-
 const perks = [
   { icon: Tag, label: "Exclusive Deals" },
   { icon: Zap, label: "First to Know" },
@@ -19,14 +17,10 @@ const perks = [
   { icon: Users, label: "10K+ Members" },
 ];
 
-// ─── Social links — update URLs to your real pages ───────────────────────────
-
 const WHATSAPP_GROUP = "https://chat.whatsapp.com/your-group-link";
 const INSTAGRAM_URL = "https://instagram.com/v2uonline";
 const TIKTOK_URL = "https://tiktok.com/@v2uonline";
 const FACEBOOK_URL = "https://facebook.com/v2uonline";
-
-// ─── Component ────────────────────────────────────────────────────────────────
 
 export default function CommunitySection() {
   return (
