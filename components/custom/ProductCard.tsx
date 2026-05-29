@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Eye, ShoppingCart, Check, X, ArrowRight } from "lucide-react";
+import { Info, ShoppingCart, Check, X, ArrowRight } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 
 export interface ColorOption {
@@ -117,7 +117,7 @@ function MobileCard({
           handleNavigate();
         }
       }}
-      className="flex cursor-pointer flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-shadow duration-200 active:shadow-md"
+      className="flex h-full cursor-pointer flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-shadow duration-200 active:shadow-md"
     >
       <div className="relative bg-[#F5F6FA]" style={{ paddingBottom: "100%" }}>
         <AnimatePresence mode="wait">
@@ -321,12 +321,12 @@ export default function ProductCard(props: ProductCardProps) {
 
   return (
     <>
-      <div className="block lg:hidden">
+      <div className="block h-full lg:hidden">
         <MobileCard {...props} />
       </div>
 
       <div
-        className="hidden group lg:block"
+        className="hidden h-full group lg:block"
         style={{ perspective: "1200px" }}
         onMouseEnter={() => setCardHovered(true)}
         onMouseLeave={() => setCardHovered(false)}
@@ -381,7 +381,7 @@ export default function ProductCard(props: ProductCardProps) {
                 aria-label="Quick view description"
                 className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-gray-500 shadow-sm backdrop-blur-sm transition-colors hover:text-[#0066FF]"
               >
-                <Eye size={16} />
+                <Info size={16} />
               </motion.button>
 
               {colorOptions.length > 1 && (
