@@ -126,81 +126,71 @@ function InlineMenu({
         )}
       </AnimatePresence>
 
-      {/* Dropdown — anchored just below the navbar pill */}
+      {/* Dropdown — anchored just below the navbar */}
       <div
         className="pointer-events-none fixed left-1/2 z-50 w-full -translate-x-1/2 px-4 md:hidden"
         style={{ top: "calc(1.5rem + 80px)" }}
       >
         <AnimatePresence>
           {open && (
-            <>
-              <ul className="pointer-events-auto flex w-full flex-col gap-2 pb-24">
-                {navLinks.map((link, i) => (
-                  <motion.li
-                    key={link.name}
-                    custom={i}
-                    variants={itemVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    className="w-full"
+            <ul className="pointer-events-auto flex w-full flex-col gap-2">
+              {navLinks.map((link, i) => (
+                <motion.li
+                  key={link.name}
+                  custom={i}
+                  variants={itemVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="w-full"
+                >
+                  <Link
+                    href={link.href}
+                    onClick={onClose}
+                    className="group flex w-full items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 px-6 py-4 backdrop-blur-xl transition-all duration-200 hover:border-[#0066FF]/40 hover:bg-[#0066FF]/15"
                   >
-                    <Link
-                      href={link.href}
-                      onClick={onClose}
-                      className="group flex w-full items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 px-6 py-4 backdrop-blur-xl transition-all duration-200 hover:border-[#0066FF]/40 hover:bg-[#0066FF]/15"
-                    >
-                      <span className="text-[17px] font-bold tracking-tight text-white/80 transition-colors duration-200 group-hover:text-white">
-                        {link.name}
-                      </span>
-                    </Link>
-                  </motion.li>
-                ))}
-              </ul>
-
-              <div className="fixed bottom left-4 right-4 z-60 flex gap-2">
-                <Link
-                  href="/search"
-                  onClick={onClose}
-                  className="flex-1 flex items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 py-4 backdrop-blur-xl"
-                >
-                  <Search size={22} className="text-white/80" />
-                </Link>
-
-                <Link
-                  href="/wishlist"
-                  onClick={onClose}
-                  className="flex-1 flex items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 py-4 backdrop-blur-xl"
-                >
-                  <Heart size={22} className="text-white/80" />
-                </Link>
-
-                <Link
-                  href="/account"
-                  onClick={onClose}
-                  className="flex-1 flex items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 py-4 backdrop-blur-xl"
-                >
-                  <User size={22} className="text-white/80" />
-                </Link>
-
-                <Link
-                  href="/cart"
-                  onClick={onClose}
-                  className="relative flex-1 flex items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 py-4 backdrop-blur-xl"
-                >
-                  <ShoppingCart size={22} className="text-white/80" />
-
-                  {cartCount > 0 && (
-                    <span className="absolute top-2 right-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#0066FF] px-0.5 text-[9px] font-bold leading-none text-white">
-                      {cartCount}
+                    <span className="text-[17px] font-bold tracking-tight text-white/80 transition-colors duration-200 group-hover:text-white">
+                      {link.name}
                     </span>
-                  )}
-                </Link>
-              </div>
-            </>
+                  </Link>
+                </motion.li>
+              ))}
+            </ul>
           )}
         </AnimatePresence>
       </div>
+
+      {/* Icon bar — truly fixed to bottom of screen, outside all other wrappers */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="icon-bar"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 24 }}
+            transition={{ duration: 0.3, delay: 0.18 }}
+            className="fixed bottom-0 left-0 right-0 z-60 flex gap-2 p-3 md:hidden"
+          >
+            <Link href="/search" onClick={onClose} className="flex-1 flex items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 py-4">
+              <Search size={22} className="text-white/80" />
+            </Link>
+            <Link href="/wishlist" onClick={onClose} className="flex-1 flex items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 py-4">
+              <Heart size={22} className="text-white/80" />
+            </Link>
+            <Link href="/account" onClick={onClose} className="flex-1 flex items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 py-4">
+              <User size={22} className="text-white/80" />
+            </Link>
+            <Link href="/cart" onClick={onClose} className="relative flex-1 flex items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 py-4">
+              <ShoppingCart size={22} className="text-white/80" />
+              {cartCount > 0 && (
+                <span className="absolute top-2 right-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#0066FF] px-0.5 text-[9px] font-bold leading-none text-white">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
