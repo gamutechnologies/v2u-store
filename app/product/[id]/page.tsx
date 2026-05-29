@@ -4,13 +4,27 @@ import RelatedProductsSection from "./sections/RelatedProductsSection";
 import productsData from "@/data/products.json";
 import { notFound } from "next/navigation";
 
-export async function generateStaticParams() {
-  return productsData.map((p) => ({ id: p.id.toString() }));
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
-export default async function ProductDetailPage(props: { params: Promise<{ id: string }> }) {
+export async function generateStaticParams() {
+  return productsData.flatMap((product) => [
+    { id: product.id.toString() },
+    { id: slugify(product.name) },
+  ]);
+}
+
+export default async function ProductDetailPage(props: {
+  params: Promise<{ id: string }>;
+}) {
   const params = await props.params;
-  const product = productsData.find((p) => p.id.toString() === params.id);
+  const product = productsData.find(
+    (p) => p.id.toString() === params.id || slugify(p.name) === params.id,
+  );
   if (!product) return notFound();
 
   return (
@@ -28,4 +42,3 @@ export default async function ProductDetailPage(props: { params: Promise<{ id: s
     </div>
   );
 }
-

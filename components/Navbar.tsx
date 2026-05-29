@@ -12,19 +12,23 @@ import {
 } from "framer-motion";
 
 const navLinks = [
-  { name: "Home",    href: "/"        },
-  { name: "Shop",    href: "/shop"    },
-  { name: "About",   href: "/about"   },
+  { name: "Home", href: "/" },
+  { name: "Shop", href: "/shop" },
+  { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
 ];
 
-const iconLinks = [
-  { icon: ShoppingCart, href: "/cart", label: "Cart" },
-];
+const iconLinks = [{ icon: ShoppingCart, href: "/cart", label: "Cart" }];
 
 // ─── Hamburger ────────────────────────────────────────────────────────────────
 
-function HamburgerButton({ open, onClick }: { open: boolean; onClick: () => void }) {
+function HamburgerButton({
+  open,
+  onClick,
+}: {
+  open: boolean;
+  onClick: () => void;
+}) {
   return (
     <motion.button
       whileTap={{ scale: 0.9 }}
@@ -33,7 +37,11 @@ function HamburgerButton({ open, onClick }: { open: boolean; onClick: () => void
       className="relative flex h-10 w-10 flex-col items-center justify-center gap-1.25 rounded-full border border-white/20 bg-white/20 backdrop-blur-xl md:hidden"
     >
       <motion.span
-        animate={open ? { rotate: 45, y: 7, width: "18px" } : { rotate: 0, y: 0, width: "18px" }}
+        animate={
+          open
+            ? { rotate: 45, y: 7, width: "18px" }
+            : { rotate: 0, y: 0, width: "18px" }
+        }
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         className="block h-0.5 rounded-full bg-white origin-center"
         style={{ width: 18 }}
@@ -45,7 +53,11 @@ function HamburgerButton({ open, onClick }: { open: boolean; onClick: () => void
         style={{ width: 14 }}
       />
       <motion.span
-        animate={open ? { rotate: -45, y: -7, width: "18px" } : { rotate: 0, y: 0, width: "18px" }}
+        animate={
+          open
+            ? { rotate: -45, y: -7, width: "18px" }
+            : { rotate: 0, y: 0, width: "18px" }
+        }
         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
         className="block h-0.5 rounded-full bg-white origin-center"
         style={{ width: 18 }}
@@ -85,7 +97,9 @@ const itemVariants = {
 function InlineMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
   return (
@@ -147,16 +161,16 @@ function InlineMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
 export default function Navbar() {
   const { cartCount } = useCart();
 
-  const [hidden,     setHidden]     = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const { scrollY }       = useScroll();
-  const lastYRef          = useRef(0);
+  const { scrollY } = useScroll();
+  const lastYRef = useRef(0);
   const scrollDistanceRef = useRef(0);
-  const hideTimeoutRef    = useRef<NodeJS.Timeout | null>(null);
+  const hideTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous   = lastYRef.current;
+    const previous = lastYRef.current;
     const difference = latest - previous;
 
     if (difference > 0) {
@@ -175,7 +189,9 @@ export default function Navbar() {
   });
 
   useEffect(() => {
-    return () => { if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current); };
+    return () => {
+      if (hideTimeoutRef.current) clearTimeout(hideTimeoutRef.current);
+    };
   }, []);
 
   useEffect(() => {
@@ -245,7 +261,7 @@ export default function Navbar() {
                   <motion.button
                     whileHover={{ scale: 1.08, y: -2 }}
                     whileTap={{ scale: 0.95 }}
-                    className="group relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-white/20 bg-white/20 backdrop-blur-xl transition-all duration-300"
+                    className="group relative flex h-11 w-11 items-center justify-center overflow-visible rounded-full border border-white/20 bg-white/20 backdrop-blur-xl transition-all duration-300"
                   >
                     <span className="absolute inset-0 scale-0 rounded-full bg-[#0066FF]/15 transition-transform duration-300 group-hover:scale-100" />
                     <Icon
@@ -253,7 +269,7 @@ export default function Navbar() {
                       className="relative z-10 text-white transition-colors duration-300 group-hover:text-[#00eeff]"
                     />
                     {item.icon === ShoppingCart && cartCount > 0 && (
-                      <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#0066FF] text-[10px] font-bold text-white">
+                      <span className="absolute -top-1 -right-1 z-20 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#0066FF] px-0.5 text-[10px] font-bold leading-none text-white shadow-[0_0_8px_rgba(0,102,255,0.5)]">
                         {cartCount}
                       </span>
                     )}
@@ -268,11 +284,11 @@ export default function Navbar() {
                 <motion.div
                   whileHover={{ scale: 1.08 }}
                   whileTap={{ scale: 0.93 }}
-                  className="relative flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/20 backdrop-blur-xl"
+                  className="relative flex h-10 w-10 items-center justify-center overflow-visible rounded-full border border-white/20 bg-white/20 backdrop-blur-xl"
                 >
                   <ShoppingCart size={17} className="text-white/80" />
                   {cartCount > 0 && (
-                    <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#0066FF] text-[9px] font-bold text-white shadow-[0_0_8px_rgba(0,102,255,0.5)]">
+                    <span className="absolute -top-1 -right-1 z-20 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#0066FF] px-0.5 text-[9px] font-bold leading-none text-white shadow-[0_0_8px_rgba(0,102,255,0.5)]">
                       {cartCount}
                     </span>
                   )}
@@ -289,10 +305,7 @@ export default function Navbar() {
       </motion.div>
 
       {/* ── Inline mobile dropdown ───────────────────────────────────────── */}
-      <InlineMenu
-        open={mobileOpen}
-        onClose={() => setMobileOpen(false)}
-      />
+      <InlineMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
     </>
   );
 }

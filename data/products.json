@@ -1,7 +1,11 @@
 [
   {
     "id": 1,
+    "brandId": "BRD000001",
     "brand": "Apple",
+    "categoryId": "CAT000001",
+    "category": "Phones",
+    "featured": true,
     "name": "iPhone 17 Pro Max",
     "originalPrice": "$1,599.00",
     "salePrice": "$1,299.00",
@@ -57,9 +61,14 @@
         "value": "Up to 29 hours video playback"
       }
     ]
-  },{
+  },
+  {
     "id": 2,
+    "brandId": "BRD000001",
     "brand": "Apple",
+    "categoryId": "CAT000001",
+    "category": "Phones",
+    "featured": true,
     "name": "iPhone 15 Pro Max",
     "originalPrice": "$1,199.00",
     "salePrice": "$1,099.00",
@@ -109,7 +118,11 @@
   },
   {
     "id": 3,
+    "brandId": "BRD000001",
     "brand": "Apple",
+    "categoryId": "CAT000002",
+    "category": "Laptops",
+    "featured": true,
     "name": "MacBook Pro 16\"",
     "originalPrice": "$2,499.00",
     "salePrice": "$2,299.00",
@@ -150,7 +163,11 @@
   },
   {
     "id": 4,
+    "brandId": "BRD000002",
     "brand": "Sony",
+    "categoryId": "CAT000003",
+    "category": "Audio",
+    "featured": true,
     "name": "WH-1000XM5 Headphones",
     "originalPrice": "$399.00",
     "salePrice": "$348.00",
@@ -194,7 +211,11 @@
   },
   {
     "id": 5,
+    "brandId": "BRD000001",
     "brand": "Apple",
+    "categoryId": "CAT000004",
+    "category": "Gaming",
+    "featured": true,
     "name": "iPad Air M2",
     "originalPrice": "$599.00",
     "salePrice": "$549.00",
@@ -234,7 +255,11 @@
   },
   {
     "id": 6,
+    "brandId": "BRD000001",
     "brand": "Apple",
+    "categoryId": "CAT000005",
+    "category": "Wearables",
+    "featured": true,
     "name": "AirPods Pro",
     "originalPrice": "$249.00",
     "salePrice": "$199.00",
@@ -257,251 +282,34 @@
       {
         "label": "Chip",
         "value": "Apple H2 headphone chip"
-      },
-      {
-        "label": "Battery Life",
-        "value": "Up to 6 hours of listening time with a single charge"
       }
     ]
   },
   {
     "id": 7,
-    "brand": "Samsung",
-    "name": "Galaxy S24 Ultra",
-    "originalPrice": "$1,299.00",
-    "salePrice": "$1,179.00",
-    "badge": "Hot",
-    "rating": 4.8,
-    "reviewCount": 128,
+    "name": "iPhone 13 pro max",
+    "description": "",
+    "badge": "",
+    "status": "In Stock",
+    "originalPrice": "$899.00",
+    "salePrice": "$799.00",
+    "rating": 0,
+    "reviewCount": 0,
+    "featured": false,
+    "images": [],
+    "variants": [],
+    "storageOptions": [],
+    "specifications": [],
     "colorOptions": [
       {
-        "label": "Titanium Black",
-        "swatch": "#2D3748",
-        "image": "/images/products/s24-ultra.png"
-      },
-      {
-        "label": "Titanium Violet",
-        "swatch": "#805AD5",
-        "image": "/images/products/s24-ultra.png"
+        "label": "Default",
+        "swatch": "#E5E7EB",
+        "image": "/images/products/phone.png"
       }
     ],
-    "storageOptions": [
-      {
-        "label": "256GB"
-      },
-      {
-        "label": "512GB",
-        "priceSuffix": "+$180"
-      }
-    ],
-    "description": "The Samsung Galaxy S24 Ultra delivers premium performance with Galaxy AI features, an advanced quad-camera setup, and an ultra-smooth AMOLED display built for productivity and gaming.",
-    "specifications": [
-      {
-        "label": "Screen Size",
-        "value": "6.8 inches"
-      },
-      {
-        "label": "Processor",
-        "value": "Snapdragon 8 Gen 3"
-      },
-      {
-        "label": "Camera",
-        "value": "200MP Main, 50MP Periscope, 12MP Ultra Wide"
-      },
-      {
-        "label": "Battery Life",
-        "value": "Up to 30 hours video playback"
-      }
-    ]
-  },
-  {
-    "id": 8,
-    "brand": "Sony",
-    "name": "PlayStation 5 Slim",
-    "originalPrice": "$599.00",
-    "salePrice": "$549.00",
-    "badge": "Trending",
-    "rating": 4.9,
-    "reviewCount": 241,
-    "colorOptions": [
-      {
-        "label": "White",
-        "swatch": "#E2E8F0",
-        "image": "/images/products/ps5.png"
-      },
-      {
-        "label": "Midnight Black",
-        "swatch": "#1A202C",
-        "image": "/images/products/ps5.png"
-      }
-    ],
-    "storageOptions": [
-      {
-        "label": "1TB SSD"
-      }
-    ],
-    "description": "PlayStation 5 Slim offers lightning-fast load times, immersive gameplay experiences, and breathtaking graphics powered by next-generation gaming technology.",
-    "specifications": [
-      {
-        "label": "Storage",
-        "value": "1TB SSD"
-      },
-      {
-        "label": "Resolution",
-        "value": "Up to 8K"
-      },
-      {
-        "label": "Performance",
-        "value": "120 FPS Support"
-      },
-      {
-        "label": "Ray Tracing",
-        "value": "Supported"
-      }
-    ]
-  },
-  {
-    "id": 9,
     "brand": "Apple",
-    "name": "MacBook Pro M3",
-    "originalPrice": "$2,199.00",
-    "salePrice": "$1,999.00",
-    "badge": "New",
-    "rating": 5.0,
-    "reviewCount": 87,
-    "colorOptions": [
-      {
-        "label": "Space Black",
-        "swatch": "#1A202C",
-        "image": "/images/products/macbook.png"
-      },
-      {
-        "label": "Silver",
-        "swatch": "#CBD5E0",
-        "image": "/images/products/macbook.png"
-      }
-    ],
-    "storageOptions": [
-      {
-        "label": "512GB SSD"
-      },
-      {
-        "label": "1TB SSD",
-        "priceSuffix": "+$400"
-      }
-    ],
-    "description": "MacBook Pro with M3 chip delivers exceptional speed, all-day battery life, and a stunning Liquid Retina XDR display for professionals and creators.",
-    "specifications": [
-      {
-        "label": "Screen Size",
-        "value": "14 inches"
-      },
-      {
-        "label": "Processor",
-        "value": "Apple M3 Pro"
-      },
-      {
-        "label": "Memory",
-        "value": "18GB Unified Memory"
-      },
-      {
-        "label": "Battery Life",
-        "value": "Up to 22 hours"
-      }
-    ]
-  },
-  {
-    "id": 10,
-    "brand": "DJI",
-    "name": "DJI Mini 4 Pro",
-    "originalPrice": "$999.00",
-    "salePrice": "$899.00",
-    "badge": "Popular",
-    "rating": 4.7,
-    "reviewCount": 63,
-    "colorOptions": [
-      {
-        "label": "Gray",
-        "swatch": "#A0AEC0",
-        "image": "/images/products/dji-mini.png"
-      }
-    ],
-    "storageOptions": [
-      {
-        "label": "Standard Combo"
-      },
-      {
-        "label": "Fly More Combo",
-        "priceSuffix": "+$250"
-      }
-    ],
-    "description": "The DJI Mini 4 Pro is a compact drone with intelligent flight modes, cinematic 4K HDR video, and advanced obstacle sensing for creators on the go.",
-    "specifications": [
-      {
-        "label": "Camera",
-        "value": "4K HDR Video"
-      },
-      {
-        "label": "Flight Time",
-        "value": "34 Minutes"
-      },
-      {
-        "label": "Weight",
-        "value": "Under 249g"
-      },
-      {
-        "label": "Obstacle Avoidance",
-        "value": "Omnidirectional"
-      }
-    ]
-  },
-  {
-    "id": 11,
-    "brand": "Logitech",
-    "name": "Logitech G Pro X TKL",
-    "originalPrice": "$249.00",
-    "salePrice": "$199.00",
-    "badge": "Sale",
-    "rating": 4.8,
-    "reviewCount": 96,
-    "colorOptions": [
-      {
-        "label": "Black",
-        "swatch": "#111827",
-        "image": "/images/products/logitech-keyboard.png"
-      },
-      {
-        "label": "White",
-        "swatch": "#F7FAFC",
-        "image": "/images/products/logitech-keyboard.png"
-      }
-    ],
-    "storageOptions": [
-      {
-        "label": "GX Blue Switches"
-      },
-      {
-        "label": "GX Red Switches"
-      }
-    ],
-    "description": "Designed for esports professionals, the Logitech G Pro X TKL offers ultra-fast wireless performance, customizable RGB lighting, and premium mechanical switches.",
-    "specifications": [
-      {
-        "label": "Connection",
-        "value": "LIGHTSPEED Wireless"
-      },
-      {
-        "label": "Switch Type",
-        "value": "Mechanical GX"
-      },
-      {
-        "label": "Battery Life",
-        "value": "Up to 50 Hours"
-      },
-      {
-        "label": "Lighting",
-        "value": "RGB LIGHTSYNC"
-      }
-    ]
+    "brandId": "BRD000001",
+    "category": "Phones",
+    "categoryId": "CAT000001"
   }
 ]

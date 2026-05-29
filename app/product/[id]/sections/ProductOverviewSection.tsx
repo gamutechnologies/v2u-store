@@ -16,25 +16,47 @@ import { useCart } from "@/context/CartContext";
 
 export default function ProductOverviewSection({ product }: { product: any }) {
   const [activeColor, setActiveColor] = useState(0);
+  const [activeStorage, setActiveStorage] = useState(0);
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
   const [added, setAdded] = useState(false);
 
-  const images = product.colorOptions.map((c: any) => c.image) || [
-    "/images/products/phone.png",
-  ];
   const colors = product.colorOptions || [];
+  const storages = product.storageOptions || [];
+  const images = colors.length
+    ? colors.map((c: any) => c.image)
+    : product.images?.length
+      ? product.images
+      : ["/images/products/phone.png"];
   const [activeImage, setActiveImage] = useState(0);
+
+  const parsePrice = (value?: string) =>
+    value ? parseFloat(value.replace(/[^0-9.]/g, "")) : 0;
+  const formatPrice = (value: number) =>
+    `$${value.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
+
+  const baseSalePrice = parsePrice(product.salePrice);
+  const baseOriginalPrice = parsePrice(product.originalPrice);
+  const storageOffset = storages[activeStorage]?.priceSuffix
+    ? parseFloat(storages[activeStorage].priceSuffix.replace(/[+$,]/g, ""))
+    : 0;
+  const displaySalePrice = formatPrice(baseSalePrice + storageOffset);
+  const displayOriginalPrice = product.originalPrice
+    ? formatPrice(baseOriginalPrice + storageOffset)
+    : null;
 
   const handleAddToCart = () => {
     setAdded(true);
-    const parsedPrice = parseFloat(product.salePrice.replace(/[^0-9.]/g, ""));
     addToCart({
       productId: product.id,
       name: product.name,
-      price: parsedPrice,
+      price: baseSalePrice + storageOffset,
       image: colors[activeColor]?.image || images[activeImage],
       color: colors[activeColor]?.label,
+      storage: storages[activeStorage]?.label,
       quantity,
     });
     setTimeout(() => setAdded(false), 2000);
@@ -129,11 +151,11 @@ export default function ProductOverviewSection({ product }: { product: any }) {
 
         <div className="mt-6 flex items-end gap-3">
           <span className="text-4xl font-black text-[#0066FF]">
-            {product.salePrice}
+            {displaySalePrice}
           </span>
           {product.originalPrice && (
             <span className="mb-1 text-xl font-medium text-gray-400 line-through">
-              {product.originalPrice}
+              {displayOriginalPrice}
             </span>
           )}
         </div>
@@ -165,6 +187,29 @@ export default function ProductOverviewSection({ product }: { product: any }) {
                     border: "1px solid #E5E5E5",
                   }}
                 />
+              ))}
+            </div>
+          </div>
+        )}
+
+        {storages.length > 0 && (
+          <div className="mt-6">
+            <h3 className="text-sm font-bold text-gray-900">
+              Storage: {storages[activeStorage]?.label}
+            </h3>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {storages.map((storage: any, i: number) => (
+                <button
+                  key={storage.label}
+                  onClick={() => setActiveStorage(i)}
+                  className={`rounded-md border px-3 py-1.5 text-xs font-semibold transition-all duration-150 ${
+                    activeStorage === i
+                      ? "border-[#0066FF] bg-[#0066FF] text-white"
+                      : "border-gray-200 bg-white text-gray-600 hover:border-[#0066FF] hover:text-[#0066FF]"
+                  }`}
+                >
+                  {storage.label}
+                </button>
               ))}
             </div>
           </div>

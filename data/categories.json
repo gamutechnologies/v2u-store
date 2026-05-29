@@ -1,0 +1,27 @@
+[
+  {
+    "id": "CAT000001",
+    "name": "Phones"
+  },
+  {
+    "id": "CAT000002",
+    "name": "Laptops"
+  },
+  {
+    "id": "CAT000003",
+    "name": "Audio"
+  },
+  {
+    "id": "CAT000004",
+    "name": "Gaming"
+  },
+  {
+    "id": "CAT000005",
+    "name": "Wearables"
+  },
+  {
+    "id": "CAT000006",
+    "name": "Consoles",
+    "image": ""
+  }
+]

@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { CartProvider } from "@/context/CartContext";
+import SiteFrame from "@/components/SiteFrame";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -16,7 +15,7 @@ export const metadata: Metadata = {
   title: "V2U Tech Store",
   description: "Premium electronics, gaming, and smart devices.",
 };
- 
+
 export default function RootLayout({
   children,
 }: {
@@ -26,9 +25,7 @@ export default function RootLayout({
     <html lang="en" className={jakarta.variable}>
       <body className="font-sans antialiased">
         <CartProvider>
-          <Navbar />
-          {children}
-          <Footer />
+          <SiteFrame>{children}</SiteFrame>
         </CartProvider>
       </body>
     </html>

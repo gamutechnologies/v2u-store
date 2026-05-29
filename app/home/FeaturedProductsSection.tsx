@@ -5,6 +5,7 @@ import { useState, useMemo, useRef } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { ArrowRight, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 import ProductCard from "@/components/custom/ProductCard";
+import productsData from "@/data/products.json";
 
 interface ColorOption {
   label: string;
@@ -18,257 +19,20 @@ interface StorageOption {
 }
 
 interface Product {
-  id: string;
+  id: number | string;
   brand: string;
   name: string;
   originalPrice: string;
   salePrice: string;
   badge?: string;
   description?: string;
-  category: string;
-  featured: boolean;
+  category?: string;
+  featured?: boolean;
   colorOptions: ColorOption[];
   storageOptions?: StorageOption[];
 }
 
-const ALL_PRODUCTS: Product[] = [
-  {
-    id: "iphone-17-pro-max",
-    brand: "Apple",
-    name: "iPhone 17 Pro Max",
-    originalPrice: "$1,499",
-    salePrice: "$1,299",
-    badge: "New",
-    category: "Phones",
-    featured: true,
-    description:
-      "The iPhone 17 Pro Max features a titanium design, A19 Pro chip, upgraded camera system, and the Action button — engineered for extraordinary performance.",
-    colorOptions: [
-      {
-        label: "Cosmic Orange",
-        swatch: "#F97316",
-        image: "/images/product/iphone17promax-orange.webp",
-      },
-      {
-        label: "Deep Blue",
-        swatch: "#1C1C1E",
-        image: "/images/product/iphone17promax-blue.webp",
-      },
-      {
-        label: "Silver",
-        swatch: "#C4B49E",
-        image: "/images/product/iphone17promax-silver.webp",
-      },
-    ],
-    storageOptions: [
-      { label: "256 GB" },
-      { label: "512 GB", priceSuffix: "+$100" },
-      { label: "1 TB", priceSuffix: "+$200" },
-      { label: "2 TB", priceSuffix: "+$300" },
-    ],
-  },
-  {
-    id: "samsung-galaxy-s25-ultra",
-    brand: "Samsung",
-    name: "Galaxy S25 Ultra",
-    originalPrice: "$1,499",
-    salePrice: "$1,299",
-    badge: "Hot",
-    category: "Phones",
-    featured: true,
-    description:
-      "Galaxy S25 Ultra delivers premium performance with Galaxy AI, an advanced 200MP quad-camera, built-in S Pen, and a stunning 6.9-inch AMOLED display.",
-    colorOptions: [
-      {
-        label: "Titanium Black",
-        swatch: "#2C2C2E",
-        image: "/images/product/galaxy-black.png",
-      },
-      {
-        label: "Titanium Silver",
-        swatch: "#A8A8A8",
-        image: "/images/product/galaxy-silver.png",
-      },
-      {
-        label: "Titanium Blue",
-        swatch: "#3A5A8C",
-        image: "/images/product/galaxy-blue.png",
-      },
-    ],
-    storageOptions: [
-      { label: "256 GB" },
-      { label: "512 GB", priceSuffix: "+$100" },
-      { label: "1 TB", priceSuffix: "+$200" },
-    ],
-  },
-  {
-    id: "macbook-pro-m4",
-    brand: "Apple",
-    name: "MacBook Pro M4",
-    originalPrice: "$2,799",
-    salePrice: "$2,499",
-    badge: "New",
-    category: "Laptops",
-    featured: true,
-    colorOptions: [
-      {
-        label: "Space Black",
-        swatch: "#1C1C1E",
-        image: "/images/product/macbook-black.png",
-      },
-      {
-        label: "Silver",
-        swatch: "#A8A8A8",
-        image: "/images/product/macbook-silver.png",
-      },
-    ],
-    storageOptions: [
-      { label: "512 GB" },
-      { label: "1 TB", priceSuffix: "+$200" },
-      { label: "2 TB", priceSuffix: "+$400" },
-    ],
-  },
-  {
-    id: "asus-rog-zephyrus-g16",
-    brand: "Asus",
-    name: "ROG Zephyrus G16",
-    originalPrice: "$2,299",
-    salePrice: "$1,999",
-    badge: "Hot",
-    category: "Laptops",
-    featured: true,
-    colorOptions: [
-      {
-        label: "Eclipse Gray",
-        swatch: "#3A3A3C",
-        image: "/images/product/rog-gray.png",
-      },
-      {
-        label: "Platinum White",
-        swatch: "#F0EFEB",
-        image: "/images/product/rog-white.png",
-      },
-    ],
-    storageOptions: [
-      { label: "1 TB" },
-      { label: "2 TB", priceSuffix: "+$300" },
-    ],
-  },
-  {
-    id: "sony-wh-1000xm6",
-    brand: "Sony",
-    name: "WH-1000XM6",
-    originalPrice: "$549",
-    salePrice: "$449",
-    badge: "Sale",
-    category: "Audio",
-    featured: true,
-    colorOptions: [
-      {
-        label: "Midnight Black",
-        swatch: "#1A1A1A",
-        image: "/images/product/headphones-black.png",
-      },
-      {
-        label: "Platinum Silver",
-        swatch: "#C0C0C0",
-        image: "/images/product/headphones-silver.png",
-      },
-      {
-        label: "Midnight Blue",
-        swatch: "#1B2A4A",
-        image: "/images/product/headphones-blue.png",
-      },
-    ],
-  },
-  {
-    id: "jbl-pulse-ultra",
-    brand: "JBL",
-    name: "Pulse Ultra Speaker",
-    originalPrice: "$449",
-    salePrice: "$399",
-    badge: "Sale",
-    category: "Audio",
-    featured: false, // hidden
-    colorOptions: [
-      {
-        label: "Jet Black",
-        swatch: "#1A1A1A",
-        image: "/images/product/jbl-black.png",
-      },
-      {
-        label: "Cobalt",
-        swatch: "#0047AB",
-        image: "/images/product/jbl-blue.png",
-      },
-    ],
-  },
-  {
-    id: "logitech-gpro-x",
-    brand: "Logitech",
-    name: "G Pro X Superlight",
-    originalPrice: "$299",
-    salePrice: "$249",
-    badge: "New",
-    category: "Gaming",
-    featured: true,
-    colorOptions: [
-      {
-        label: "Carbon Black",
-        swatch: "#1A1A1A",
-        image: "/images/product/gpro-black.png",
-      },
-      {
-        label: "Ghost White",
-        swatch: "#F5F5F0",
-        image: "/images/product/gpro-white.png",
-      },
-    ],
-  },
-  {
-    id: "samsung-odyssey-oled",
-    brand: "Samsung",
-    name: "Odyssey OLED G9",
-    originalPrice: "$1,499",
-    salePrice: "$1,299",
-    category: "Gaming",
-    featured: true,
-    colorOptions: [
-      {
-        label: "Matte Black",
-        swatch: "#1A1A1A",
-        image: "/images/product/odyssey-black.png",
-      },
-    ],
-  },
-  {
-    id: "apple-watch-ultra-2",
-    brand: "Apple",
-    name: "Watch Ultra 2",
-    originalPrice: "$999",
-    salePrice: "$899",
-    badge: "Hot",
-    category: "Wearables",
-    featured: true,
-    colorOptions: [
-      {
-        label: "Titanium",
-        swatch: "#8A8A8A",
-        image: "/images/product/watch-titanium.png",
-      },
-      {
-        label: "Black",
-        swatch: "#1C1C1E",
-        image: "/images/product/watch-black.png",
-      },
-      {
-        label: "Natural",
-        swatch: "#C4B49E",
-        image: "/images/product/watch-natural.png",
-      },
-    ],
-  },
-];
+const ALL_PRODUCTS: Product[] = productsData as Product[];
 
 // ─── Config ───────────────────────────────────────────────────────────────────
 
