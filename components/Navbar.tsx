@@ -19,7 +19,6 @@ const navLinks = [
 ];
 
 const iconLinks = [
-  { icon: Search, href: "/search", label: "Search" },
   { icon: Heart, href: "/wishlist", label: "Wishlist" },
   { icon: User, href: "/account", label: "Account" },
   { icon: ShoppingCart, href: "/cart", label: "Cart" },
@@ -97,10 +96,12 @@ function InlineMenu({
   open,
   onClose,
   cartCount,
+  onSearchOpen,
 }: {
   open: boolean;
   onClose: () => void;
   cartCount: number;
+  onSearchOpen: () => void;
 }) {
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -171,16 +172,34 @@ function InlineMenu({
             transition={{ duration: 0.3, delay: 0.18 }}
             className="fixed bottom-0 left-0 right-0 z-60 flex gap-2 p-3 md:hidden"
           >
-            <Link href="/search" onClick={onClose} className="flex-1 flex items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 py-4">
+            <button
+              onClick={() => {
+                onClose();
+                onSearchOpen();
+              }}
+              className="flex-1 flex items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 py-4"
+            >
               <Search size={22} className="text-white/80" />
-            </Link>
-            <Link href="/wishlist" onClick={onClose} className="flex-1 flex items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 py-4">
+            </button>
+            <Link
+              href="/wishlist"
+              onClick={onClose}
+              className="flex-1 flex items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 py-4"
+            >
               <Heart size={22} className="text-white/80" />
             </Link>
-            <Link href="/account" onClick={onClose} className="flex-1 flex items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 py-4">
+            <Link
+              href="/account"
+              onClick={onClose}
+              className="flex-1 flex items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 py-4"
+            >
               <User size={22} className="text-white/80" />
             </Link>
-            <Link href="/cart" onClick={onClose} className="relative flex-1 flex items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 py-4">
+            <Link
+              href="/cart"
+              onClick={onClose}
+              className="relative flex-1 flex items-center justify-center rounded-md border border-white/10 bg-zinc-900/80 py-4"
+            >
               <ShoppingCart size={22} className="text-white/80" />
               {cartCount > 0 && (
                 <span className="absolute top-2 right-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#0066FF] px-0.5 text-[9px] font-bold leading-none text-white">
@@ -198,6 +217,7 @@ function InlineMenu({
 export default function Navbar() {
   const { cartCount } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   return (
     <>
@@ -284,29 +304,31 @@ export default function Navbar() {
 
             {/* Mobile: cart + hamburger */}
             <div className="flex items-center gap-2 md:hidden">
-              <Link href="/search">
-                <motion.div
-                  whileTap={{ scale: 0.93 }}
-                  className="relative flex h-10 w-10 items-center justify-center overflow-visible rounded-full border border-gray-200 bg-white"
-                >
-                  <Search size={17} className="text-gray-700" />
-                </motion.div>
-              </Link>
+              {!mobileOpen && (
+                <>
+                  <button
+                    onClick={() => setSearchOpen(true)}
+                    className="relative flex h-10 w-10 items-center justify-center overflow-visible rounded-full border border-gray-200 bg-white"
+                  >
+                    <Search size={17} className="text-gray-700" />
+                  </button>
 
-              <Link href="/cart">
-                <motion.div
-                  whileTap={{ scale: 0.93 }}
-                  className="relative flex h-10 w-10 items-center justify-center overflow-visible rounded-full border border-gray-200 bg-white"
-                >
-                  <ShoppingCart size={17} className="text-gray-700" />
+                  <Link href="/cart">
+                    <motion.div
+                      whileTap={{ scale: 0.93 }}
+                      className="relative flex h-10 w-10 items-center justify-center overflow-visible rounded-full border border-gray-200 bg-white"
+                    >
+                      <ShoppingCart size={17} className="text-gray-700" />
 
-                  {cartCount > 0 && (
-                    <span className="absolute -top-1 -right-1 z-20 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#0066FF] px-0.5 text-[9px] font-bold leading-none text-white">
-                      {cartCount}
-                    </span>
-                  )}
-                </motion.div>
-              </Link>
+                      {cartCount > 0 && (
+                        <span className="absolute -top-1 -right-1 z-20 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#0066FF] px-0.5 text-[9px] font-bold leading-none text-white">
+                          {cartCount}
+                        </span>
+                      )}
+                    </motion.div>
+                  </Link>
+                </>
+              )}
 
               <HamburgerButton
                 open={mobileOpen}
@@ -322,7 +344,47 @@ export default function Navbar() {
         open={mobileOpen}
         onClose={() => setMobileOpen(false)}
         cartCount={cartCount}
+        onSearchOpen={() => setSearchOpen(true)}
       />
+
+      <AnimatePresence>
+        {searchOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSearchOpen(false)}
+              className="fixed inset-0 z-70 bg-black/50 backdrop-blur-sm"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="fixed top-20 left-4 right-4 z-80 rounded-xl bg-white p-4 shadow-xl md:hidden"
+            >
+              <div className="flex items-center gap-3">
+                <Search size={18} className="text-gray-500" />
+
+                <input
+                  autoFocus
+                  type="text"
+                  placeholder="Search products..."
+                  className="flex-1 outline-none text-sm"
+                />
+
+                <button
+                  onClick={() => setSearchOpen(false)}
+                  className="text-sm font-medium text-gray-500"
+                >
+                  Close
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 }

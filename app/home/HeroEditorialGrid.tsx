@@ -25,15 +25,14 @@ const panels = [
 ];
 
 const metrics = [
-  { value: "146+", label: "Countries Served" },
-  { value: "8+",   label: "Global Brands"    },
-  { value: "10K+", label: "Products Listed"  },
+  { value: "100K+", label: "Orders Delivered" },
+  { value: "8+", label: "Global Brands" },
+  { value: "1K+", label: "Products Listed" },
 ];
 
 export default function HeroEditorialGrid() {
   return (
     <section className="relative overflow-hidden bg-[#F5F7FA]">
-
       {/* Glow orbs */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute right-[-8%] top-[-10%] h-100 w-100 rounded-full bg-[#0066FF]/8 blur-[100px]" />
@@ -42,7 +41,6 @@ export default function HeroEditorialGrid() {
 
       {/* MOBILE  (< md)  — centered heading, centered metric pills, square panels */}
       <div className="relative block px-4 py-12 md:hidden">
-
         {/* Heading — centered */}
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -68,7 +66,9 @@ export default function HeroEditorialGrid() {
           {metrics.map((m, i) => (
             <div key={i} className="flex flex-col items-center gap-0.5">
               <p className="text-2xl font-black text-[#0066FF]">{m.value}</p>
-              <p className="text-center text-[11px] leading-tight text-gray-500">{m.label}</p>
+              <p className="text-center text-[11px] leading-tight text-gray-500">
+                {m.label}
+              </p>
             </div>
           ))}
         </motion.div>
@@ -108,7 +108,9 @@ export default function HeroEditorialGrid() {
                 <h3 className="mt-2 whitespace-pre-line text-2xl font-black leading-tight text-white">
                   {panel.title}
                 </h3>
-                <p className="mt-1.5 text-[12px] text-white/60">{panel.subtitle}</p>
+                <p className="mt-1.5 text-[12px] text-white/60">
+                  {panel.subtitle}
+                </p>
                 <Link href={panel.href}>
                   <motion.span
                     whileTap={{ scale: 0.96 }}
@@ -126,7 +128,6 @@ export default function HeroEditorialGrid() {
 
       {/* TABLET  (md – lg)  — same layout as desktop but square panels */}
       <div className="relative hidden px-8 py-16 md:block lg:hidden">
-
         {/* Header row — same as desktop */}
         <div className="mb-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <motion.h2
@@ -195,7 +196,10 @@ export default function HeroEditorialGrid() {
                     className="group/btn mt-5 inline-flex cursor-pointer items-center gap-2.5 rounded-md border border-white/25 bg-white/15 px-5 py-2.5 text-sm font-bold text-white backdrop-blur-sm transition-all duration-200 hover:border-white/50 hover:bg-white/25"
                   >
                     {panel.cta}
-                    <ArrowRight size={13} className="transition-transform duration-200 group-hover/btn:translate-x-1" />
+                    <ArrowRight
+                      size={13}
+                      className="transition-transform duration-200 group-hover/btn:translate-x-1"
+                    />
                   </motion.span>
                 </Link>
               </div>
@@ -210,7 +214,6 @@ export default function HeroEditorialGrid() {
 
       {/* DESKTOP  (≥ lg)  — COMPLETELY UNCHANGED */}
       <div className="relative hidden w-full px-8 py-16 lg:block lg:px-16">
-
         <div className="mb-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <motion.h2
             initial={{ opacity: 0, y: 24 }}
@@ -282,7 +285,10 @@ export default function HeroEditorialGrid() {
                     className="group/btn mt-6 inline-flex cursor-pointer items-center gap-2.5 rounded-md border border-white/25 bg-white/15 px-6 py-3 text-sm font-bold text-white backdrop-blur-sm transition-all duration-200 hover:border-white/50 hover:bg-white/25"
                   >
                     {panel.cta}
-                    <ArrowRight size={14} className="transition-transform duration-200 group-hover/btn:translate-x-1" />
+                    <ArrowRight
+                      size={14}
+                      className="transition-transform duration-200 group-hover/btn:translate-x-1"
+                    />
                   </motion.span>
                 </Link>
               </div>
@@ -294,7 +300,6 @@ export default function HeroEditorialGrid() {
           ))}
         </div>
       </div>
-
     </section>
   );
 }

@@ -1,5 +1,3 @@
-// app/page.tsx
-
 import HeroSection from "@/app/home/HeroSection";
 import HeroStatsBar from "@/app/home/HeroStatsBar";
 import HeroEditorialGrid from "@/app/home/HeroEditorialGrid";
@@ -16,12 +14,11 @@ export default function Home() {
   return (
     <>
       <HomePopup />
-
       <HeroSection />
       <HeroStatsBar />
       <HeroEditorialGrid />
-      <ExpandingShowcaseSection />
       <FeaturedCategoriesSection />
+      <ExpandingShowcaseSection />
       <FeaturedProductsSection />
       <PromoBannerSection />
       <BrandShowcaseSection />

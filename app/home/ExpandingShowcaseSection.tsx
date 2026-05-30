@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const panels = [
   {
@@ -45,11 +45,11 @@ const panels = [
   },
 ];
 
-const GROW_ACTIVE   = 5.5;
+const GROW_ACTIVE = 5.5;
 const GROW_INACTIVE = 1;
 
 function MobileCarousel() {
-  const [current, setCurrent]   = useState(0);
+  const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1); // 1 = forward, -1 = back
   const dragStartX = useRef(0);
 
@@ -58,15 +58,27 @@ function MobileCarousel() {
     setCurrent(index);
   };
 
-  const prev = () => { if (current > 0) goTo(current - 1); };
-  const next = () => { if (current < panels.length - 1) goTo(current + 1); };
+  const prev = () => {
+    if (current > 0) goTo(current - 1);
+  };
+  const next = () => {
+    if (current < panels.length - 1) goTo(current + 1);
+  };
 
   const panel = panels[current];
 
   const variants = {
-    enter:  (d: number) => ({ x: d > 0 ? "60%" : "-60%", opacity: 0, scale: 0.92 }),
-    center: {               x: 0,                          opacity: 1, scale: 1      },
-    exit:   (d: number) => ({ x: d > 0 ? "-60%" : "60%",  opacity: 0, scale: 0.92 }),
+    enter: (d: number) => ({
+      x: d > 0 ? "60%" : "-60%",
+      opacity: 0,
+      scale: 0.92,
+    }),
+    center: { x: 0, opacity: 1, scale: 1 },
+    exit: (d: number) => ({
+      x: d > 0 ? "-60%" : "60%",
+      opacity: 0,
+      scale: 0.92,
+    }),
   };
 
   return (
@@ -75,11 +87,13 @@ function MobileCarousel() {
       <div
         className="relative overflow-hidden rounded-md"
         style={{ height: "clamp(300px, 62vw, 440px)" }}
-        onPointerDown={(e) => { dragStartX.current = e.clientX; }}
+        onPointerDown={(e) => {
+          dragStartX.current = e.clientX;
+        }}
         onPointerUp={(e) => {
           const delta = e.clientX - dragStartX.current;
           if (delta < -40 && current < panels.length - 1) next();
-          if (delta >  40 && current > 0)                 prev();
+          if (delta > 40 && current > 0) prev();
         }}
       >
         <AnimatePresence custom={direction} mode="popLayout">
@@ -120,7 +134,8 @@ function MobileCarousel() {
             {/* Counter top-right */}
             <div className="absolute right-5 top-5 rounded-full border border-white/15 bg-black/30 px-3 py-1 backdrop-blur-sm">
               <span className="text-[11px] font-bold text-white/60">
-                {String(current + 1).padStart(2, "0")}&nbsp;/&nbsp;{String(panels.length).padStart(2, "0")}
+                {String(current + 1).padStart(2, "0")}&nbsp;/&nbsp;
+                {String(panels.length).padStart(2, "0")}
               </span>
             </div>
 
@@ -129,7 +144,9 @@ function MobileCarousel() {
               <h3 className="whitespace-pre-line text-[1.75rem] font-black leading-tight tracking-tight text-white">
                 {panel.title}
               </h3>
-              <p className="mt-1.5 text-[13px] text-white/60">{panel.subtitle}</p>
+              <p className="mt-1.5 text-[13px] text-white/60">
+                {panel.subtitle}
+              </p>
 
               <Link href={panel.href}>
                 <motion.span
@@ -138,56 +155,15 @@ function MobileCarousel() {
                   className="group mt-4 inline-flex cursor-pointer items-center gap-2 rounded-md border-2 border-white bg-white px-5 py-2.5 text-[13px] font-bold text-gray-900 transition-all duration-200 hover:border-[#0066FF] hover:bg-[#0066FF] hover:text-white"
                 >
                   {panel.cta}
-                  <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-1" />
+                  <ArrowRight
+                    size={13}
+                    className="transition-transform duration-200 group-hover:translate-x-1"
+                  />
                 </motion.span>
               </Link>
             </div>
           </motion.div>
         </AnimatePresence>
-      </div>
-
-      {/* Controls row: prev / dots / next */}
-      <div className="flex items-center justify-between px-1">
-        {/* Prev arrow */}
-        <motion.button
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.93 }}
-          onClick={prev}
-          disabled={current === 0}
-          aria-label="Previous"
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-400 shadow-sm transition-all hover:border-[#0066FF]/40 hover:text-[#0066FF] disabled:pointer-events-none disabled:opacity-25"
-        >
-          <ChevronLeft size={16} />
-        </motion.button>
-
-        {/* Dot indicators */}
-        <div className="flex items-center gap-2">
-          {panels.map((p, i) => (
-            <button key={p.id} onClick={() => goTo(i)} aria-label={`Go to ${p.label}`}>
-              <motion.span
-                animate={{
-                  width:           i === current ? 24 : 7,
-                  backgroundColor: i === current ? "#0066FF" : "rgba(0,102,255,0.18)",
-                }}
-                transition={{ duration: 0.28 }}
-                className="block h-2 rounded-full"
-                style={{ width: 7 }}
-              />
-            </button>
-          ))}
-        </div>
-
-        {/* Next arrow */}
-        <motion.button
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.93 }}
-          onClick={next}
-          disabled={current === panels.length - 1}
-          aria-label="Next"
-          className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-400 shadow-sm transition-all hover:border-[#0066FF]/40 hover:text-[#0066FF] disabled:pointer-events-none disabled:opacity-25"
-        >
-          <ChevronRight size={16} />
-        </motion.button>
       </div>
 
       {/* Category strip — all 4 as tappable thumb tabs below */}
@@ -197,12 +173,11 @@ function MobileCarousel() {
             key={p.id}
             whileTap={{ scale: 0.94 }}
             onClick={() => goTo(i)}
-            className={`relative overflow-hidden rounded-md border transition-all duration-200 ${
+            className={`relative overflow-hidden rounded-md border transition-all duration-200 h-10 sm:h-12 ${
               i === current
                 ? "border-[#0066FF]/40 shadow-[0_0_14px_rgba(0,102,255,0.15)]"
                 : "border-gray-100"
             }`}
-            style={{ paddingBottom: "75%" }}
           >
             <Image
               src={p.image}
@@ -218,7 +193,7 @@ function MobileCarousel() {
                   : "bg-linear-to-t from-black/60 to-black/20"
               }`}
             />
-            <span className="absolute inset-x-0 bottom-1.5 text-center text-[9px] font-bold uppercase tracking-wider text-white/90">
+            <span className="absolute inset-0 flex items-center justify-center text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-white/90">
               {p.label}
             </span>
           </motion.button>
@@ -233,7 +208,6 @@ export default function ExpandingShowcaseSection() {
 
   return (
     <section className="relative overflow-hidden bg-white px-6 py-16 lg:px-16">
-
       {/* Section heading */}
       <motion.div
         initial={{ opacity: 0, y: 24 }}
@@ -281,9 +255,9 @@ export default function ExpandingShowcaseSection() {
               onMouseEnter={() => setActive(panel.id)}
               className="relative shrink-0 cursor-pointer overflow-hidden"
               style={{
-                flexGrow:  panel.id === 1 ? GROW_ACTIVE : GROW_INACTIVE,
+                flexGrow: panel.id === 1 ? GROW_ACTIVE : GROW_INACTIVE,
                 flexBasis: 0,
-                minWidth:  52,
+                minWidth: 52,
               }}
             >
               <Image
@@ -316,7 +290,11 @@ export default function ExpandingShowcaseSection() {
               >
                 <p
                   className="whitespace-nowrap text-sm font-bold text-white/80"
-                  style={{ writingMode: "vertical-rl", textOrientation: "mixed", transform: "rotate(180deg)" }}
+                  style={{
+                    writingMode: "vertical-rl",
+                    textOrientation: "mixed",
+                    transform: "rotate(180deg)",
+                  }}
                 >
                   {panel.label}
                 </p>
@@ -344,7 +322,10 @@ export default function ExpandingShowcaseSection() {
                     className="group ml-6 inline-flex cursor-pointer items-center gap-2 rounded-md border-2 border-white bg-white px-5 py-2.5 text-sm font-bold text-gray-900 transition-all duration-200 hover:border-[#0066FF] hover:bg-[#0066FF] hover:text-white"
                   >
                     {panel.cta}
-                    <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+                    <ArrowRight
+                      size={14}
+                      className="transition-transform duration-200 group-hover:translate-x-1"
+                    />
                   </motion.span>
                 </Link>
               </motion.div>
@@ -363,24 +344,6 @@ export default function ExpandingShowcaseSection() {
           );
         })}
       </motion.div>
-
-      {/* Desktop dot indicators */}
-      <div className="mt-5 hidden items-center justify-center gap-2.5 lg:flex">
-        {panels.map((p) => (
-          <button key={p.id} onClick={() => setActive(p.id)} aria-label={`View ${p.label}`}>
-            <motion.span
-              animate={{
-                width:           p.id === active ? 24 : 7,
-                backgroundColor: p.id === active ? "#0066FF" : "rgba(0,102,255,0.2)",
-              }}
-              transition={{ duration: 0.3 }}
-              className="block h-2 rounded-full"
-              style={{ width: 7 }}
-            />
-          </button>
-        ))}
-      </div>
-
     </section>
   );
 }
