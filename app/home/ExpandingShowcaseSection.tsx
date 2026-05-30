@@ -84,16 +84,22 @@ function MobileCarousel() {
   return (
     <div className="flex flex-col gap-5">
       {/* Card */}
-      <div
-        className="relative overflow-hidden rounded-md"
-        style={{ height: "clamp(300px, 62vw, 440px)" }}
-        onPointerDown={(e) => {
-          dragStartX.current = e.clientX;
-        }}
-        onPointerUp={(e) => {
-          const delta = e.clientX - dragStartX.current;
-          if (delta < -40 && current < panels.length - 1) next();
-          if (delta > 40 && current > 0) prev();
+      <motion.div
+        className="relative overflow-hidden rounded-md touch-pan-y"
+        style={{ height: "clamp(260px, 58vw, 380px)" }}
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.15}
+        onDragEnd={(_, info) => {
+          const swipe = info.offset.x;
+
+          if (swipe < -60 && current < panels.length - 1) {
+            next();
+          }
+
+          if (swipe > 60 && current > 0) {
+            prev();
+          }
         }}
       >
         <AnimatePresence custom={direction} mode="popLayout">
@@ -132,12 +138,12 @@ function MobileCarousel() {
             </div>
 
             {/* Counter top-right */}
-            <div className="absolute right-5 top-5 rounded-full border border-white/15 bg-black/30 px-3 py-1 backdrop-blur-sm">
+            {/* <div className="absolute right-5 top-5 rounded-full border border-white/15 bg-black/30 px-3 py-1 backdrop-blur-sm">
               <span className="text-[11px] font-bold text-white/60">
                 {String(current + 1).padStart(2, "0")}&nbsp;/&nbsp;
                 {String(panels.length).padStart(2, "0")}
               </span>
-            </div>
+            </div> */}
 
             {/* Bottom content */}
             <div className="absolute bottom-0 inset-x-0 p-5">
@@ -164,7 +170,7 @@ function MobileCarousel() {
             </div>
           </motion.div>
         </AnimatePresence>
-      </div>
+      </motion.div>
 
       {/* Category strip — all 4 as tappable thumb tabs below */}
       <div className="grid grid-cols-4 gap-2">

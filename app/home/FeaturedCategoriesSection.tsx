@@ -6,9 +6,9 @@ import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, ChevronRight } from "lucide-react";
 import { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
-
+import "swiper/css/pagination";
 import "swiper/css";
 
 const categories = [
@@ -90,7 +90,7 @@ export default function FeaturedCategoriesSection() {
           </div>
 
           {/* Right: nav + view all */}
-          <div className="flex items-center gap-3">
+          <div className="hidden md:flex items-center gap-3">
             {/* Prev */}
             <button
               onClick={() => swiperRef.current?.slidePrev()}
@@ -152,9 +152,14 @@ export default function FeaturedCategoriesSection() {
 
         {/* Carousel */}
         <Swiper
-          modules={[Navigation]}
+          modules={[Navigation, Pagination]}
           spaceBetween={14}
-          slidesPerView={2}
+          slidesPerView={1.3}
+          grabCursor={true}
+          pagination={{
+            clickable: true,
+            dynamicBullets: true,
+          }}
           onSwiper={(swiper) => {
             swiperRef.current = swiper;
             setIsBeginning(swiper.isBeginning);
@@ -165,7 +170,7 @@ export default function FeaturedCategoriesSection() {
             setIsEnd(swiper.isEnd);
           }}
           breakpoints={{
-            480: { slidesPerView: 3 },
+            480: { slidesPerView: 2.2 },
             768: { slidesPerView: 4 },
             1024: { slidesPerView: 5 },
             1280: { slidesPerView: 6 },
@@ -215,6 +220,27 @@ export default function FeaturedCategoriesSection() {
           ))}
         </Swiper>
       </div>
+      <style jsx global>{`
+        .swiper-pagination {
+          position: relative !important;
+          margin-top: 20px;
+        }
+
+        .swiper-pagination-bullet {
+          width: 8px;
+          height: 8px;
+        }
+
+        .swiper-pagination-bullet-active {
+          transform: scale(1.2);
+        }
+
+        @media (min-width: 768px) {
+          .swiper-pagination {
+            display: none;
+          }
+        }
+      `}</style>
     </section>
   );
 }

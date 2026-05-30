@@ -19,9 +19,9 @@ const slides = [
     bg: "from-[#0052CC80] via-[#0066FF] to-[#3B9FFF80]",
     textAccent: "#D9EEFF",
     stats: [
-      { value: "50%",  label: "Discounts"  },
-      { value: "24H",  label: "Flash Deals" },
-      { value: "100+", label: "Products"   },
+      { value: "50%", label: "Discounts" },
+      { value: "24H", label: "Flash Deals" },
+      { value: "100+", label: "Products" },
     ],
   },
   {
@@ -36,9 +36,9 @@ const slides = [
     bg: "from-[#11182780] via-[#1E293B] to-[#0F346080]",
     textAccent: "#7DBBFF",
     stats: [
-      { value: "PS5", label: "In Stock"    },
+      { value: "PS5", label: "In Stock" },
       { value: "RTX", label: "Gaming GPUs" },
-      { value: "4K",  label: "Displays"   },
+      { value: "4K", label: "Displays" },
     ],
   },
   {
@@ -53,9 +53,9 @@ const slides = [
     bg: "from-[#003D1F80] via-[#00572C] to-[#007A3D80]",
     textAccent: "#86EFAC",
     stats: [
-      { value: "20%",  label: "Off Everything" },
-      { value: "48H",  label: "Remaining"      },
-      { value: "Free", label: "Shipping"       },
+      { value: "20%", label: "Off Everything" },
+      { value: "48H", label: "Remaining" },
+      { value: "Free", label: "Shipping" },
     ],
   },
   {
@@ -70,9 +70,9 @@ const slides = [
     bg: "from-[#1A0533] via-[#2D0B55] to-[#4C1D95]",
     textAccent: "#C4B5FD",
     stats: [
-      { value: "A19",   label: "Pro Chip" },
-      { value: "200MP", label: "Camera"   },
-      { value: "5G",    label: "Ready"    },
+      { value: "A19", label: "Pro Chip" },
+      { value: "200MP", label: "Camera" },
+      { value: "5G", label: "Ready" },
     ],
   },
 ];
@@ -80,11 +80,11 @@ const slides = [
 const INTERVAL = 5000;
 
 function useCarousel() {
-  const [current,   setCurrent]   = useState(0);
+  const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
-  const [paused,    setPaused]    = useState(false);
-  const [progress,  setProgress]  = useState(0);
-  const timerRef    = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [paused, setPaused] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const goTo = (idx: number, dir?: number) => {
@@ -97,12 +97,12 @@ function useCarousel() {
 
   useEffect(() => {
     if (paused) {
-      if (timerRef.current)    clearInterval(timerRef.current);
+      if (timerRef.current) clearInterval(timerRef.current);
       if (progressRef.current) clearInterval(progressRef.current);
       return;
     }
     setProgress(0);
-    const tick  = 50;
+    const tick = 50;
     const steps = INTERVAL / tick;
     progressRef.current = setInterval(() => {
       setProgress((p) => Math.min(100, p + 100 / steps));
@@ -113,7 +113,7 @@ function useCarousel() {
       setProgress(0);
     }, INTERVAL);
     return () => {
-      if (timerRef.current)    clearInterval(timerRef.current);
+      if (timerRef.current) clearInterval(timerRef.current);
       if (progressRef.current) clearInterval(progressRef.current);
     };
   }, [current, paused]);
@@ -122,29 +122,43 @@ function useCarousel() {
 }
 
 const slideVariants = {
-  enter:  (d: number) => ({ x: d > 0 ? "100%" : "-100%", opacity: 0 }),
-  center: { x: 0, opacity: 1, transition: { duration: 0.52, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } },
-  exit:   (d: number) => ({ x: d > 0 ? "-60%" : "60%", opacity: 0, transition: { duration: 0.35 } }),
+  enter: (d: number) => ({ x: d > 0 ? "100%" : "-100%", opacity: 0 }),
+  center: {
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.52,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    },
+  },
+  exit: (d: number) => ({
+    x: d > 0 ? "-60%" : "60%",
+    opacity: 0,
+    transition: { duration: 0.35 },
+  }),
 };
 
-// ─── MOBILE + TABLET  (< lg) ──────────────────────────────────────────────────
+// MOBILE + TABLET  (< lg)
 
 function MobileCarousel() {
-  const { current, direction, paused, progress, setPaused, goTo, prev, next } = useCarousel();
+  const { current, direction, paused, progress, setPaused, goTo, prev, next } =
+    useCarousel();
   const slide = slides[current];
 
   return (
     <section className="relative w-full overflow-hidden bg-white lg:hidden">
-
       {/* Banner area — swipe left/right to change slide */}
       <motion.div
         className="relative w-full overflow-hidden cursor-grab active:cursor-grabbing"
         style={{ height: "clamp(380px, 100vw, 480px)" }}
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.05}
         onTouchStart={() => setPaused(true)}
         onTouchEnd={() => setPaused(false)}
         onPanEnd={(_e, info) => {
-          if (info.offset.x < -40) next();
-          else if (info.offset.x > 40) prev();
+          if (info.offset.x < -50) next();
+          else if (info.offset.x > 50) prev();
         }}
       >
         <AnimatePresence custom={direction} mode="popLayout">
@@ -161,7 +175,8 @@ function MobileCarousel() {
             <div
               className="pointer-events-none absolute inset-0 opacity-10"
               style={{
-                backgroundImage: "radial-gradient(circle, #ffffff18 1px, transparent 1px)",
+                backgroundImage:
+                  "radial-gradient(circle, #ffffff18 1px, transparent 1px)",
                 backgroundSize: "24px 24px",
               }}
             />
@@ -177,13 +192,19 @@ function MobileCarousel() {
             <motion.div
               initial={{ opacity: 0, scale: 0.85, x: 20 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
-              transition={{ duration: 0.55, delay: 0.08, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
+              transition={{
+                duration: 0.55,
+                delay: 0.08,
+                ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+              }}
               className="absolute right-0 top-0 h-[65%] w-[55%]"
             >
               {/* Accent glow behind product */}
               <div
                 className="absolute inset-0"
-                style={{ background: `radial-gradient(ellipse at 60% 40%, ${slide.textAccent}30 0%, transparent 70%)` }}
+                style={{
+                  background: `radial-gradient(ellipse at 60% 40%, ${slide.textAccent}30 0%, transparent 70%)`,
+                }}
               />
               <Image
                 src={slide.image}
@@ -199,7 +220,6 @@ function MobileCarousel() {
 
             {/* Content — bottom-left */}
             <div className="absolute bottom-0 left-0 right-0 z-10 px-5 pb-6">
-
               {/* Badge pill */}
               <motion.div
                 initial={{ opacity: 0, y: -8 }}
@@ -213,7 +233,10 @@ function MobileCarousel() {
                 </span>
                 <span
                   className="ml-0.5 rounded-full px-2 py-0.5 text-[9px] font-black"
-                  style={{ backgroundColor: "rgba(255,255,255,0.15)", color: slide.textAccent }}
+                  style={{
+                    backgroundColor: "rgba(255,255,255,0.15)",
+                    color: slide.textAccent,
+                  }}
                 >
                   {slide.badge}
                 </span>
@@ -238,7 +261,10 @@ function MobileCarousel() {
               >
                 {slide.stats.map((s, i) => (
                   <div key={i} className="flex flex-col">
-                    <span className="text-[17px] font-black leading-none" style={{ color: slide.textAccent }}>
+                    <span
+                      className="text-[17px] font-black leading-none"
+                      style={{ color: slide.textAccent }}
+                    >
                       {s.value}
                     </span>
                     <span className="mt-0.5 text-[9px] font-semibold uppercase tracking-wider text-white/50">
@@ -261,7 +287,10 @@ function MobileCarousel() {
                     className="group inline-flex cursor-pointer items-center gap-1.5 border-2 rounded-md border-white bg-white px-5 py-2.5 text-[13px] font-bold text-gray-900 transition-all duration-200 hover:bg-transparent hover:text-white"
                   >
                     {slide.cta}
-                    <ArrowRight size={12} className="transition-transform duration-200 group-hover:translate-x-1" />
+                    <ArrowRight
+                      size={12}
+                      className="transition-transform duration-200 group-hover:translate-x-1"
+                    />
                   </motion.span>
                 </Link>
                 <Link href="/shop">
@@ -274,7 +303,6 @@ function MobileCarousel() {
                 </Link>
               </motion.div>
             </div>
-
           </motion.div>
         </AnimatePresence>
       </motion.div>
@@ -284,10 +312,15 @@ function MobileCarousel() {
         {/* Dots */}
         <div className="flex items-center gap-1.5">
           {slides.map((_, i) => (
-            <button key={i} onClick={() => goTo(i)} aria-label={`Slide ${i + 1}`}>
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              aria-label={`Slide ${i + 1}`}
+            >
               <motion.span
                 animate={{
-                  backgroundColor: i === current ? "#0066FF" : "rgba(0,102,255,0.2)",
+                  backgroundColor:
+                    i === current ? "#0066FF" : "rgba(0,102,255,0.2)",
                   width: i === current ? 20 : 7,
                 }}
                 transition={{ duration: 0.28 }}
@@ -307,7 +340,9 @@ function MobileCarousel() {
               className="h-full rounded-full bg-linear-to-r from-[#0066FF] to-[#7DBBFF]"
             />
           </div>
-          <span className="text-[10px] font-semibold text-gray-400">{paused ? "Paused" : "Auto"}</span>
+          <span className="text-[10px] font-semibold text-gray-400">
+            {paused ? "Paused" : "Auto"}
+          </span>
         </div>
       </div>
     </section>
@@ -317,7 +352,8 @@ function MobileCarousel() {
 // ─── DESKTOP  (≥ lg) — COMPLETELY UNCHANGED ───────────────────────────────────
 
 function DesktopCarousel() {
-  const { current, direction, paused, progress, setPaused, goTo, prev, next } = useCarousel();
+  const { current, direction, paused, progress, setPaused, goTo, prev, next } =
+    useCarousel();
   const slide = slides[current];
 
   return (
@@ -345,7 +381,8 @@ function DesktopCarousel() {
             <div
               className="pointer-events-none absolute inset-0 opacity-10"
               style={{
-                backgroundImage: "radial-gradient(circle, #ffffff18 1px, transparent 1px)",
+                backgroundImage:
+                  "radial-gradient(circle, #ffffff18 1px, transparent 1px)",
                 backgroundSize: "28px 28px",
               }}
             />
@@ -374,7 +411,10 @@ function DesktopCarousel() {
                   </span>
                   <span
                     className="ml-1 rounded-full px-2 py-0.5 text-[10px] font-black"
-                    style={{ backgroundColor: "rgba(255,255,255,0.18)", color: slide.textAccent }}
+                    style={{
+                      backgroundColor: "rgba(255,255,255,0.18)",
+                      color: slide.textAccent,
+                    }}
                   >
                     {slide.badge}
                   </span>
@@ -407,7 +447,10 @@ function DesktopCarousel() {
                 >
                   {slide.stats.map((s, i) => (
                     <div key={i} className="flex flex-col items-start">
-                      <span className="text-2xl font-black leading-none" style={{ color: slide.textAccent }}>
+                      <span
+                        className="text-2xl font-black leading-none"
+                        style={{ color: slide.textAccent }}
+                      >
                         {s.value}
                       </span>
                       <span className="mt-0.5 text-[10px] font-semibold uppercase tracking-wider text-white/50">
@@ -430,7 +473,10 @@ function DesktopCarousel() {
                       className="group inline-flex cursor-pointer items-center gap-2 border-2 rounded-md border-white bg-white px-7 py-3 text-sm font-bold text-gray-900 transition-all duration-200 hover:bg-transparent hover:text-white"
                     >
                       {slide.cta}
-                      <ArrowRight size={14} className="transition-transform duration-200 group-hover:translate-x-1" />
+                      <ArrowRight
+                        size={14}
+                        className="transition-transform duration-200 group-hover:translate-x-1"
+                      />
                     </motion.span>
                   </Link>
                   <Link href="/shop">
@@ -446,13 +492,23 @@ function DesktopCarousel() {
               </div>
 
               <div className="relative hidden h-full w-[42%] items-center justify-center lg:flex">
-                <div className="absolute inset-0 flex items-center justify-center" style={{ filter: "blur(60px)" }}>
-                  <div className="h-64 w-64 rounded-full opacity-40" style={{ backgroundColor: slide.textAccent }} />
+                <div
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{ filter: "blur(60px)" }}
+                >
+                  <div
+                    className="h-64 w-64 rounded-full opacity-40"
+                    style={{ backgroundColor: slide.textAccent }}
+                  />
                 </div>
                 <motion.div
                   initial={{ opacity: 0, scale: 0.88, x: 30 }}
                   animate={{ opacity: 1, scale: 1, x: 0 }}
-                  transition={{ duration: 0.55, delay: 0.1, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] }}
+                  transition={{
+                    duration: 0.55,
+                    delay: 0.1,
+                    ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+                  }}
                   className="relative z-10 h-[85%] w-full"
                 >
                   <Image
@@ -465,10 +521,16 @@ function DesktopCarousel() {
                 </motion.div>
                 <motion.div
                   animate={{ y: [0, -9, 0] }}
-                  transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                  transition={{
+                    repeat: Infinity,
+                    duration: 4,
+                    ease: "easeInOut",
+                  }}
                   className="absolute bottom-10 left-4 z-20 rounded-2xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-2xl"
                 >
-                  <p className="text-[10px] font-semibold text-white/50">Starting from</p>
+                  <p className="text-[10px] font-semibold text-white/50">
+                    Starting from
+                  </p>
                   <p className="mt-0.5 text-xl font-black text-white">$249</p>
                 </motion.div>
               </div>
@@ -480,17 +542,25 @@ function DesktopCarousel() {
       <div className="flex items-center justify-between gap-4 border-b border-[#7DBBFF]/10 bg-[#F8FBFF] px-16 py-3 lg:px-24">
         <div className="flex items-center gap-2">
           {slides.map((s, i) => (
-            <button key={i} onClick={() => goTo(i)} aria-label={`Slide ${i + 1}`} className="group relative flex items-center gap-2 rounded-full px-3 py-1.5 transition-all duration-200 hover:bg-[#0066FF]/8">
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              aria-label={`Slide ${i + 1}`}
+              className="group relative flex items-center gap-2 rounded-full px-3 py-1.5 transition-all duration-200 hover:bg-[#0066FF]/8"
+            >
               <motion.span
                 animate={{
-                  backgroundColor: i === current ? "#0066FF" : "rgba(0,102,255,0.2)",
+                  backgroundColor:
+                    i === current ? "#0066FF" : "rgba(0,102,255,0.2)",
                   width: i === current ? 24 : 8,
                 }}
                 transition={{ duration: 0.3 }}
                 className="block h-2 rounded-full"
                 style={{ width: 8 }}
               />
-              <span className={`hidden text-[11px] font-semibold transition-colors duration-200 sm:block ${i === current ? "text-[#0066FF]" : "text-gray-400 group-hover:text-gray-600"}`}>
+              <span
+                className={`hidden text-[11px] font-semibold transition-colors duration-200 sm:block ${i === current ? "text-[#0066FF]" : "text-gray-400 group-hover:text-gray-600"}`}
+              >
                 {s.label}
               </span>
             </button>
@@ -504,15 +574,16 @@ function DesktopCarousel() {
               className="h-full rounded-full bg-linear-to-r from-[#0066FF] to-[#7DBBFF]"
             />
           </div>
-          <span className="text-[10px] font-semibold text-gray-400">{paused ? "Paused" : "Auto"}</span>
+          <span className="text-[10px] font-semibold text-gray-400">
+            {paused ? "Paused" : "Auto"}
+          </span>
         </div>
       </div>
     </section>
   );
 }
 
-// ─── Exports ──────────────────────────────────────────────────────────────────
-
+// Exports
 export default function PromoBannerSection() {
   return (
     <>

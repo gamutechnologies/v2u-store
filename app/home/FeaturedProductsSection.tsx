@@ -1,14 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { ArrowRight, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 import ProductCard from "@/components/custom/ProductCard";
 import productsData from "@/data/products.json";
 
-interface ColorOption   { label: string; swatch: string; image: string }
-interface StorageOption { label: string; priceSuffix?: string }
+interface ColorOption {
+  label: string;
+  swatch: string;
+  image: string;
+}
+interface StorageOption {
+  label: string;
+  priceSuffix?: string;
+}
 interface Product {
   id: number | string;
   brand: string;
@@ -36,9 +43,11 @@ function useCardsPerPage(): number {
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
-      if      (w >= 1024) setN(4); // lg → 4 columns
-      else if (w >= 768)  setN(3); // md → 3 columns
-      else                setN(2); // mobile → 2 columns
+      if (w >= 1024)
+        setN(4); // lg → 4 columns
+      else if (w >= 768)
+        setN(3); // md → 3 columns
+      else setN(2); // mobile → 2 columns
     };
     update();
     window.addEventListener("resize", update);
@@ -47,13 +56,18 @@ function useCardsPerPage(): number {
   return n;
 }
 
-// ─── Animation variants ───────────────────────────────────────────────────────
+// Animation variants
 
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 16, scale: 0.97 },
   show: {
-    opacity: 1, y: 0, scale: 1,
-    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.4,
+      ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+    },
   },
 };
 const containerVariants: Variants = {
@@ -61,12 +75,13 @@ const containerVariants: Variants = {
   show: { transition: { staggerChildren: 0.06 } },
 };
 
-// ─── Section ──────────────────────────────────────────────────────────────────
+// Section
 
 export default function FeaturedProductsSection() {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [page,           setPage]           = useState(0);
-  const [direction,      setDirection]      = useState(1);
+  const [page, setPage] = useState(0);
+  const [direction, setDirection] = useState(1);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   // Dynamic — matches the CSS grid columns exactly
   const cardsPerPage = useCardsPerPage();
@@ -81,6 +96,7 @@ export default function FeaturedProductsSection() {
 
   // Clamp page when cardsPerPage changes (e.g. resize)
   const totalPages = Math.ceil(visibleProducts.length / cardsPerPage);
+  const mobilePages = Math.ceil(visibleProducts.length / 2);
   const clampedPage = Math.min(page, Math.max(0, totalPages - 1));
 
   const pageProducts = useMemo<Product[]>(() => {
@@ -106,16 +122,23 @@ export default function FeaturedProductsSection() {
   };
 
   const slideVariants: Variants = {
-    enter:  (d: number) => ({ opacity: 0, x: d * 40 }),
+    enter: (d: number) => ({ opacity: 0, x: d * 40 }),
     center: {
-      opacity: 1, x: 0,
-      transition: { duration: 0.38, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.38,
+        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
+      },
     },
     exit: (d: number) => ({
-      opacity: 0, x: d * -30,
+      opacity: 0,
+      x: d * -30,
       transition: { duration: 0.22 },
     }),
   };
+
+  const mobileScrollRef = useRef<HTMLDivElement>(null);
 
   return (
     <section className="relative overflow-hidden bg-[#F0F6FF] py-16">
@@ -126,7 +149,6 @@ export default function FeaturedProductsSection() {
       </div>
 
       <div className="relative w-full px-8 lg:px-16">
-
         {/* ── Header row — UNCHANGED ────────────────────────────────────── */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -146,7 +168,7 @@ export default function FeaturedProductsSection() {
 
           <div className="flex items-center gap-3">
             {totalPages > 1 && (
-              <span className="text-xs font-semibold text-gray-400">
+              <span className="hidden md:block text-xs font-semibold text-gray-400">
                 {clampedPage + 1} / {totalPages}
               </span>
             )}
@@ -157,9 +179,12 @@ export default function FeaturedProductsSection() {
               onClick={() => goTo(Math.max(0, clampedPage - 1))}
               disabled={clampedPage === 0}
               aria-label="Previous"
-              className="group flex h-9 w-9 items-center justify-center rounded-xl border border-[#7DBBFF]/20 bg-white shadow-sm transition-all duration-200 hover:border-[#0066FF]/30 hover:bg-[#F0F6FF] disabled:cursor-not-allowed disabled:opacity-30"
+              className="hidden md:flex group h-9 w-9 items-center justify-center rounded-xl border border-[#7DBBFF]/20 bg-white shadow-sm transition-all duration-200 hover:border-[#0066FF]/30 hover:bg-[#F0F6FF] disabled:cursor-not-allowed disabled:opacity-30"
             >
-              <ChevronLeft size={15} className="text-gray-500 transition-colors duration-200 group-hover:text-[#0066FF]" />
+              <ChevronLeft
+                size={15}
+                className="text-gray-500 transition-colors duration-200 group-hover:text-[#0066FF]"
+              />
             </motion.button>
 
             <motion.button
@@ -168,9 +193,12 @@ export default function FeaturedProductsSection() {
               onClick={() => goTo(Math.min(totalPages - 1, clampedPage + 1))}
               disabled={clampedPage >= totalPages - 1}
               aria-label="Next"
-              className="group flex h-9 w-9 items-center justify-center rounded-xl border border-[#7DBBFF]/20 bg-white shadow-sm transition-all duration-200 hover:border-[#0066FF]/30 hover:bg-[#F0F6FF] disabled:cursor-not-allowed disabled:opacity-30"
+              className="hidden md:flex group h-9 w-9 items-center justify-center rounded-xl border border-[#7DBBFF]/20 bg-white shadow-sm transition-all duration-200 hover:border-[#0066FF]/30 hover:bg-[#F0F6FF] disabled:cursor-not-allowed disabled:opacity-30"
             >
-              <ChevronRight size={15} className="text-gray-500 transition-colors duration-200 group-hover:text-[#0066FF]" />
+              <ChevronRight
+                size={15}
+                className="text-gray-500 transition-colors duration-200 group-hover:text-[#0066FF]"
+              />
             </motion.button>
 
             <div className="h-5 w-px bg-[#7DBBFF]/25" />
@@ -182,7 +210,10 @@ export default function FeaturedProductsSection() {
                 className="group hidden items-center gap-2 rounded-xl border border-[#7DBBFF]/25 bg-white px-5 py-2.5 text-xs font-semibold text-gray-700 shadow-sm transition-all duration-200 hover:border-[#0066FF]/30 hover:bg-[#F0F6FF] hover:text-[#0066FF] sm:inline-flex"
               >
                 View All
-                <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-1" />
+                <ArrowRight
+                  size={13}
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                />
               </motion.span>
             </Link>
           </div>
@@ -197,7 +228,7 @@ export default function FeaturedProductsSection() {
           className="mt-5 flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none"
         >
           {CATEGORIES.map((cat) => {
-            const count    = countFor(cat);
+            const count = countFor(cat);
             if (count === 0) return null;
             const isActive = activeCategory === cat;
             return (
@@ -213,7 +244,9 @@ export default function FeaturedProductsSection() {
                 }`}
               >
                 {cat}
-                <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold leading-none ${isActive ? "bg-white/20 text-white" : "bg-[#0066FF]/10 text-[#0066FF]"}`}>
+                <span
+                  className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold leading-none ${isActive ? "bg-white/20 text-white" : "bg-[#0066FF]/10 text-[#0066FF]"}`}
+                >
                   {count}
                 </span>
               </motion.button>
@@ -221,92 +254,181 @@ export default function FeaturedProductsSection() {
           })}
         </motion.div>
 
-        {/* ── Cards grid ────────────────────────────────────────────────── */}
+        {/* Cards grid */}
         {/*
           Grid always shows exactly 1 row at a time (cardsPerPage === column count).
           Because it's 1 row, CSS grid makes every cell the same height automatically.
           The tallest card in the set drives the row height; all others stretch to match.
         */}
-        <div className="relative mt-6 overflow-hidden">
-          <AnimatePresence mode="wait" custom={direction}>
-            {visibleProducts.length > 0 ? (
-              <motion.div
-                key={`${activeCategory}-${clampedPage}-${cardsPerPage}`}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-              >
+        <div className="mt-6">
+          {/* Mobile Swipe */}
+          <div
+            ref={mobileScrollRef}
+            onScroll={(e) => {
+              const container = e.currentTarget;
+
+              const pageWidth = container.clientWidth;
+
+              const page = Math.round(container.scrollLeft / pageWidth);
+
+              setCurrentSlide(page);
+            }}
+            className="flex gap-4 overflow-x-auto snap-x snap-mandatory md:hidden scrollbar-none"
+          >
+            {visibleProducts.map((product) => (
+              <div key={product.id} className="basis-[48%] shrink-0 snap-start">
+                <ProductCard
+                  id={product.id}
+                  brand={product.brand}
+                  name={product.name}
+                  originalPrice={product.originalPrice}
+                  salePrice={product.salePrice}
+                  badge={product.badge}
+                  description={product.description}
+                  colorOptions={product.colorOptions}
+                  storageOptions={product.storageOptions}
+                />
+              </div>
+            ))}
+          </div>
+          <div className="hidden md:block relative mt-6 overflow-hidden">
+            <AnimatePresence mode="wait" custom={direction}>
+              {visibleProducts.length > 0 ? (
                 <motion.div
-                  variants={containerVariants}
-                  initial="hidden"
-                  animate="show"
-                  className="grid grid-cols-2 items-stretch gap-4 md:grid-cols-3 lg:grid-cols-4"
+                  key={`${activeCategory}-${clampedPage}-${cardsPerPage}`}
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="enter"
+                  animate="center"
+                  exit="exit"
                 >
-                  {pageProducts.map((product) => (
-                    <motion.div
-                      key={product.id}
-                      variants={cardVariants}
-                      className="h-full min-h-0"
-                    >
-                      <ProductCard
-                        id={product.id}
-                        brand={product.brand}
-                        name={product.name}
-                        originalPrice={product.originalPrice}
-                        salePrice={product.salePrice}
-                        badge={product.badge}
-                        description={product.description}
-                        colorOptions={product.colorOptions}
-                        storageOptions={product.storageOptions}
-                        onAddToCart={(color, storage) => {
-                          console.log(`[Cart] ${product.name} — ${color.label}${storage ? ` / ${storage.label}` : ""}`);
-                        }}
-                      />
-                    </motion.div>
-                  ))}
+                  <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="show"
+                    className="grid grid-cols-2 items-stretch gap-4 md:grid-cols-3 lg:grid-cols-4"
+                  >
+                    {pageProducts.map((product) => (
+                      <motion.div
+                        key={product.id}
+                        variants={cardVariants}
+                        className="h-full min-h-0"
+                      >
+                        <ProductCard
+                          id={product.id}
+                          brand={product.brand}
+                          name={product.name}
+                          originalPrice={product.originalPrice}
+                          salePrice={product.salePrice}
+                          badge={product.badge}
+                          description={product.description}
+                          colorOptions={product.colorOptions}
+                          storageOptions={product.storageOptions}
+                          onAddToCart={(color, storage) => {
+                            console.log(
+                              `[Cart] ${product.name} — ${color.label}${storage ? ` / ${storage.label}` : ""}`,
+                            );
+                          }}
+                        />
+                      </motion.div>
+                    ))}
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="empty"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-[#7DBBFF]/25 bg-white/40 py-16 backdrop-blur-xl"
-              >
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-[#0066FF] to-[#7DBBFF] text-white">
-                  <Sparkles size={22} />
-                </div>
-                <p className="text-sm font-bold text-gray-700">No featured products here</p>
-                <button
-                  onClick={() => handleCategoryChange("All")}
-                  className="rounded-full bg-linear-to-r from-[#0066FF] to-[#7DBBFF] px-6 py-2.5 text-xs font-semibold text-white"
+              ) : (
+                <motion.div
+                  key="empty"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="flex flex-col items-center justify-center gap-3 rounded-3xl border border-dashed border-[#7DBBFF]/25 bg-white/40 py-16 backdrop-blur-xl"
                 >
-                  View All
-                </button>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-linear-to-br from-[#0066FF] to-[#7DBBFF] text-white">
+                    <Sparkles size={22} />
+                  </div>
+                  <p className="text-sm font-bold text-gray-700">
+                    No featured products here
+                  </p>
+                  <button
+                    onClick={() => handleCategoryChange("All")}
+                    className="rounded-full bg-linear-to-r from-[#0066FF] to-[#7DBBFF] px-6 py-2.5 text-xs font-semibold text-white"
+                  >
+                    View All
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </div>
 
-        {/* ── Dot pagination — UNCHANGED ────────────────────────────────── */}
-        {totalPages > 1 && (
-          <div className="mt-6 flex items-center justify-center gap-2">
-            {Array.from({ length: totalPages }).map((_, i) => (
-              <button key={i} onClick={() => goTo(i)} aria-label={`Page ${i + 1}`}>
-                <motion.span
-                  animate={{
-                    width:           i === clampedPage ? 24 : 7,
-                    backgroundColor: i === clampedPage ? "#0066FF" : "rgba(0,102,255,0.2)",
-                  }}
-                  transition={{ duration: 0.3 }}
-                  className="block h-2 rounded-full"
-                  style={{ width: 7 }}
-                />
-              </button>
-            ))}
+        {/* Dot pagination — UNCHANGED */}
+        {mobilePages > 1 && (
+          <div className="mt-6 flex items-center justify-center gap-2 md:hidden">
+            {mobilePages > 1 && (
+              <div className="mt-6 flex items-center justify-center gap-2">
+                {Array.from({ length: mobilePages })
+                  .filter((_, i) => {
+                    if (mobilePages <= 5) return true;
+
+                    if (currentSlide <= 2) return i < 5;
+                    if (currentSlide >= mobilePages - 3)
+                      return i >= mobilePages - 5;
+
+                    return i >= currentSlide - 2 && i <= currentSlide + 2;
+                  })
+                  .map((_, i) => {
+                    let realIndex = i;
+
+                    if (mobilePages > 5) {
+                      if (currentSlide <= 2) {
+                        realIndex = i;
+                      } else if (currentSlide >= mobilePages - 3) {
+                        realIndex = mobilePages - 5 + i;
+                      } else {
+                        realIndex = currentSlide - 2 + i;
+                      }
+                    }
+
+                    const distance = Math.abs(realIndex - currentSlide);
+
+                    return (
+                      <button
+                        key={realIndex}
+                        onClick={() => {
+                          const container = mobileScrollRef.current;
+                          if (!container) return;
+
+                          container.scrollTo({
+                            left: realIndex * container.clientWidth,
+                            behavior: "smooth",
+                          });
+                        }}
+                        aria-label={`Page ${realIndex + 1}`}
+                      >
+                        <motion.span
+                          animate={{
+                            width:
+                              distance === 0 ? 18 : distance === 1 ? 10 : 6,
+                            opacity:
+                              distance === 0 ? 1 : distance === 1 ? 0.6 : 0.25,
+                            scale:
+                              distance === 0 ? 1 : distance === 1 ? 0.9 : 0.8,
+                            backgroundColor:
+                              distance === 0
+                                ? "#0066FF"
+                                : "rgba(0,102,255,0.35)",
+                          }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 28,
+                          }}
+                          className="block h-2 rounded-full"
+                        />
+                      </button>
+                    );
+                  })}
+              </div>
+            )}
           </div>
         )}
 
@@ -319,8 +441,12 @@ export default function FeaturedProductsSection() {
           className="mt-8 flex flex-col items-center justify-between gap-4 rounded-2xl border border-[#7DBBFF]/15 bg-white/50 px-7 py-5 backdrop-blur-xl sm:flex-row"
         >
           <div>
-            <p className="text-sm font-bold text-gray-900">Didn't find what you're looking for?</p>
-            <p className="text-xs text-gray-400">Browse 10,000+ products across every category.</p>
+            <p className="text-sm font-bold text-gray-900">
+              Didn't find what you're looking for?
+            </p>
+            <p className="text-xs text-gray-400">
+              Browse 10,000+ products across every category.
+            </p>
           </div>
           <Link href="/shop">
             <motion.span
@@ -329,11 +455,13 @@ export default function FeaturedProductsSection() {
               className="group inline-flex shrink-0 items-center gap-2 rounded-md bg-linear-to-r from-[#3585fc] to-[#63aefd] px-7 py-3 text-sm font-bold text-white shadow-[0_0_22px_rgba(0,102,255,0.25)]"
             >
               Explore Full Shop
-              <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
+              <ArrowRight
+                size={15}
+                className="transition-transform duration-200 group-hover:translate-x-1"
+              />
             </motion.span>
           </Link>
         </motion.div>
-
       </div>
     </section>
   );
